@@ -25,6 +25,7 @@
             <a href="{{ route('admin.news.index') }}" class="block px-3 py-2 rounded-lg hover:bg-slate-800 {{ request()->routeIs('admin.news.*') ? 'bg-slate-800 text-white' : '' }}">Berita</a>
             <a href="{{ route('admin.courses.index') }}" class="block px-3 py-2 rounded-lg hover:bg-slate-800 {{ request()->routeIs('admin.courses.*') ? 'bg-slate-800 text-white' : '' }}">Pelatihan</a>
             <a href="{{ route('admin.pages.index') }}" class="block px-3 py-2 rounded-lg hover:bg-slate-800 {{ request()->routeIs('admin.pages.*') ? 'bg-slate-800 text-white' : '' }}">Halaman Konten</a>
+            <a href="{{ route('admin.sliders.index') }}" class="block px-3 py-2 rounded-lg hover:bg-slate-800 {{ request()->routeIs('admin.sliders.*') ? 'bg-slate-800 text-white' : '' }}">Slider Beranda</a>
 
             @if (auth()->user()?->isAdmin())
                 <p class="px-3 pt-4 pb-1 text-xs uppercase tracking-wide text-slate-500">Khusus Admin</p>

@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             DemoDataSeeder::class,
             MenuSeeder::class,
             P2mppContentSeeder::class,
+            SliderSeeder::class,
         ]);
 
         User::factory()->create([

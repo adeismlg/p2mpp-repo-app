@@ -2,54 +2,52 @@
 
 @section('content')
     <section
-        x-data="{ active: 0, slides: 3 }"
-        x-init="setInterval(() => active = (active + 1) % slides, 6000)"
+        x-data="{ active: 0, slides: @js($sliders->map(fn ($slider) => ['id' => $slider->id, 'image' => $slider->image, 'title' => $slider->localized('title'), 'subtitle' => $slider->localized('subtitle'), 'link_url' => $slider->link_url, 'button_label' => $slider->localized('button_label')])->values()) }"
+        x-init="setInterval(() => active = slides.length ? (active + 1) % slides.length : 0, 6000)"
         class="relative isolate overflow-hidden bg-slate-950 text-white"
     >
         <div class="absolute inset-0">
-            <div x-show="active === 0" x-transition.opacity.duration.700ms class="absolute inset-0">
-                <img src="{{ asset('images/home-slider/kegiatan-p2mpp.jpeg') }}" alt="Kegiatan P2MPP" class="h-full w-full object-cover">
-            </div>
-            <div x-show="active === 1" x-transition.opacity.duration.700ms class="absolute inset-0">
-                <img src="{{ asset('images/home-slider/kepuasan-mahasiswa-2025.png') }}" alt="Laporan kepuasan mahasiswa tahun 2025" class="h-full w-full object-cover">
-            </div>
-            <div x-show="active === 2" x-transition.opacity.duration.700ms class="absolute inset-0 bg-gradient-to-br from-indigo-950 via-indigo-700 to-indigo-500"></div>
+            <template x-for="(slide, index) in slides" :key="slide.id">
+                <div x-show="active === index" x-transition.opacity.duration.700ms class="absolute inset-0">
+                    <img :src="'{{ asset('storage') }}/' + slide.image" :alt="slide.title" class="h-full w-full object-cover">
+                </div>
+            </template>
+            <div x-show="slides.length === 0" class="absolute inset-0 bg-gradient-to-br from-indigo-950 via-indigo-700 to-indigo-500"></div>
             <div class="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-indigo-950/70 to-indigo-900/20"></div>
         </div>
 
         <div class="relative mx-auto flex min-h-[30rem] max-w-6xl items-center px-4 py-16 md:min-h-[34rem]">
             <div class="max-w-2xl">
-                <p class="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-indigo-200">P2MPP Polinema</p>
-                <h1 class="mb-5 text-3xl font-extrabold leading-tight md:text-5xl">
-                    {{ __('public.hero_title') }}
-                </h1>
-                <p class="mb-8 max-w-xl text-base leading-7 text-indigo-100 md:text-lg">
-                    {{ __('public.hero_description') }}
-                </p>
-                <a href="{{ route('documents.index') }}" class="inline-flex items-center rounded-lg bg-white px-6 py-3 font-semibold text-indigo-700 shadow-lg transition hover:bg-indigo-50">
-                    {{ __('public.document_repository') }}
-                </a>
+                <template x-if="slides.length > 0">
+                    <div>
+                        <p class="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-indigo-200">P2MPP Polinema</p>
+                        <h1 class="mb-5 text-3xl font-extrabold leading-tight md:text-5xl" x-text="slides[active].title"></h1>
+                        <p x-show="slides[active].subtitle" class="mb-8 max-w-xl text-base leading-7 text-indigo-100 md:text-lg" x-text="slides[active].subtitle"></p>
+                        <a x-show="slides[active].link_url" :href="slides[active].link_url" class="inline-flex items-center rounded-lg bg-white px-6 py-3 font-semibold text-indigo-700 shadow-lg transition hover:bg-indigo-50" x-text="slides[active].button_label || '{{ __('public.document_repository') }}'"></a>
+                    </div>
+                </template>
+                <template x-if="slides.length === 0">
+                    <div>
+                        <p class="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-indigo-200">P2MPP Polinema</p>
+                        <h1 class="mb-5 text-3xl font-extrabold leading-tight md:text-5xl">{{ __('public.hero_title') }}</h1>
+                        <p class="mb-8 max-w-xl text-base leading-7 text-indigo-100 md:text-lg">{{ __('public.hero_description') }}</p>
+                        <a href="{{ route('documents.index') }}" class="inline-flex items-center rounded-lg bg-white px-6 py-3 font-semibold text-indigo-700 shadow-lg transition hover:bg-indigo-50">{{ __('public.document_repository') }}</a>
+                    </div>
+                </template>
             </div>
         </div>
 
-        <div class="absolute inset-x-0 bottom-6 z-10 flex items-center justify-between px-4 md:px-8">
+        <div x-show="slides.length > 0" class="absolute inset-x-0 bottom-6 z-10 flex items-center justify-between px-4 md:px-8">
             <div class="flex gap-2">
-                <template x-for="index in slides" :key="index">
-                    <button
-                        type="button"
-                        @click="active = index - 1"
-                        :aria-label="'{{ __('public.slide') }} ' + index"
-                        :aria-current="active === index - 1 ? 'true' : 'false'"
-                        :class="active === index - 1 ? 'w-8 bg-white' : 'w-2 bg-white/50 hover:bg-white/80'"
-                        class="h-2 rounded-full transition-all"
-                    ></button>
+                <template x-for="(slide, index) in slides" :key="slide.id">
+                    <button type="button" @click="active = index" :aria-label="'{{ __('public.slide') }} ' + (index + 1)" :aria-current="active === index ? 'true' : 'false'" :class="active === index ? 'w-8 bg-white' : 'w-2 bg-white/50 hover:bg-white/80'" class="h-2 rounded-full transition-all"></button>
                 </template>
             </div>
             <div class="flex gap-2">
-                <button type="button" @click="active = (active - 1 + slides) % slides" aria-label="{{ __('public.previous_slide') }}" class="rounded-full bg-black/25 p-2 text-white backdrop-blur hover:bg-black/45">
+                <button type="button" @click="active = (active - 1 + slides.length) % slides.length" aria-label="{{ __('public.previous_slide') }}" class="rounded-full bg-black/25 p-2 text-white backdrop-blur hover:bg-black/45">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
                 </button>
-                <button type="button" @click="active = (active + 1) % slides" aria-label="{{ __('public.next_slide') }}" class="rounded-full bg-black/25 p-2 text-white backdrop-blur hover:bg-black/45">
+                <button type="button" @click="active = (active + 1) % slides.length" aria-label="{{ __('public.next_slide') }}" class="rounded-full bg-black/25 p-2 text-white backdrop-blur hover:bg-black/45">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
                 </button>
             </div>

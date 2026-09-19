@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\DocumentController as AdminDocumentController;
 use App\Http\Controllers\Admin\MenuController as AdminMenuController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\PageController as AdminPageController;
+use App\Http\Controllers\Admin\SliderController as AdminSliderController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DocumentController;
@@ -17,6 +18,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SitemapController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Laravel\Fortify\Http\Controllers\PasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,7 +73,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // Keep the Breeze endpoint available while Fortify uses /user/password.
-    Route::put('/password', [\Laravel\Fortify\Http\Controllers\PasswordController::class, 'update']);
+    Route::put('/password', [PasswordController::class, 'update']);
 });
 
 /*
@@ -113,6 +115,11 @@ Route::middleware(['auth', 'staff'])->prefix('admin')->name('admin.')->group(fun
         ->names('pages')
         ->except(['show']);
 
+    Route::resource('slider', AdminSliderController::class)
+        ->parameters(['slider' => 'slider'])
+        ->names('sliders')
+        ->except(['show']);
+
     // Khusus admin: kategori dokumen, manajemen staff, & struktur menu
     Route::middleware('admin')->group(function () {
         Route::resource('kategori', CategoryController::class)
@@ -129,4 +136,4 @@ Route::middleware(['auth', 'staff'])->prefix('admin')->name('admin.')->group(fun
     });
 });
 
-//require __DIR__.'/auth.php'; // dibuat otomatis oleh Laravel Breeze
+// require __DIR__.'/auth.php'; // dibuat otomatis oleh Laravel Breeze

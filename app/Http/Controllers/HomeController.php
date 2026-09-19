@@ -5,11 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\Document;
 use App\Models\News;
+use App\Models\Slider;
+use Illuminate\Contracts\View\View;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(): View
     {
+        $sliders = Slider::where('is_active', true)
+            ->orderBy('order')
+            ->orderByDesc('created_at')
+            ->get();
+
         $latestNews = News::whereNotNull('published_at')
             ->orderByDesc('published_at')
             ->take(3)
@@ -22,6 +29,6 @@ class HomeController extends Controller
             ->take(6)
             ->get();
 
-        return view('home', compact('latestNews', 'courses', 'latestDocuments'));
+        return view('home', compact('sliders', 'latestNews', 'courses', 'latestDocuments'));
     }
 }
