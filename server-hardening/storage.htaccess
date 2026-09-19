@@ -1,0 +1,10 @@
+# Taruh file ini sebagai .htaccess DI DALAM folder storage/app/public/
+# (di server produksi, bukan di repo). Tujuannya: kalaupun ada file
+# berbahaya lolos ke folder upload, dia tetap TIDAK BISA dieksekusi
+# sebagai PHP oleh server — cuma bisa diakses sebagai file statis biasa.
+
+<FilesMatch "\.(php|phtml|php3|php4|php5|php7|phar|pht|cgi|pl)$">
+    Require all denied
+</FilesMatch>
+
+Options -Indexes
