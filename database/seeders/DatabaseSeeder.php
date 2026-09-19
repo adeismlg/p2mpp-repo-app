@@ -15,10 +15,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        // $this->call(DemoDataSeeder::class);
-        // $this->call(DocumentRepositorySeeder::class);
+        $this->call([
+            DocumentRepositorySeeder::class,
+            DemoDataSeeder::class,
+            MenuSeeder::class,
+            P2mppContentSeeder::class,
+        ]);
 
         User::factory()->create([
             'name' => 'Test User',

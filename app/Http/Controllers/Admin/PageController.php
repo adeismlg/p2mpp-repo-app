@@ -24,7 +24,9 @@ class PageController extends Controller
     {
         $data = $request->validate([
             'title' => 'required|string|max:255',
+            'title_en' => 'nullable|string|max:255',
             'content' => 'nullable|string',
+            'content_en' => 'nullable|string',
             'is_published' => 'nullable|boolean',
         ]);
 

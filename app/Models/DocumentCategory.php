@@ -11,7 +11,14 @@ class DocumentCategory extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'slug', 'description'];
+    protected $fillable = ['name', 'name_en', 'slug', 'description', 'description_en'];
+
+    public function localized(string $attribute): mixed
+    {
+        return app()->getLocale() === 'en' && filled($this->getAttribute($attribute.'_en'))
+            ? $this->getAttribute($attribute.'_en')
+            : $this->getAttribute($attribute);
+    }
 
     protected static function booted(): void
     {

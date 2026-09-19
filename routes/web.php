@@ -26,6 +26,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+Route::get('/language/{locale}', function (string $locale) {
+    abort_unless(in_array($locale, ['id', 'en'], true), 404);
+
+    session(['locale' => $locale]);
+
+    return redirect()->back();
+})->name('locale.switch');
+
 /*
 | Route 'dashboard' ini WAJIB ada meskipun tidak dipakai langsung di
 | navigasi kita sendiri — Breeze & Fortify menunjuk ke sini secara

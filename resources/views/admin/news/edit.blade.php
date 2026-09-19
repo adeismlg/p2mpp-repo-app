@@ -13,14 +13,17 @@
             <label class="block text-sm font-medium mb-1">Judul</label>
             <input type="text" name="title" value="{{ old('title', $news->title) }}" class="w-full border rounded-lg px-3 py-2 text-sm" required>
         </div>
+        <div><label class="block text-sm font-medium mb-1">Judul (English)</label><input type="text" name="title_en" value="{{ old('title_en', $news->title_en) }}" class="w-full border rounded-lg px-3 py-2 text-sm"></div>
         <div>
             <label class="block text-sm font-medium mb-1">Ringkasan Singkat</label>
             <input type="text" name="excerpt" value="{{ old('excerpt', $news->excerpt) }}" class="w-full border rounded-lg px-3 py-2 text-sm">
         </div>
+        <div><label class="block text-sm font-medium mb-1">Ringkasan Singkat (English)</label><input type="text" name="excerpt_en" value="{{ old('excerpt_en', $news->excerpt_en) }}" class="w-full border rounded-lg px-3 py-2 text-sm"></div>
         <div>
             <label class="block text-sm font-medium mb-1">Isi Berita</label>
             <textarea name="content" rows="8" data-rich-editor class="w-full border rounded-lg px-3 py-2 text-sm" required>{{ old('content', $news->content) }}</textarea>
         </div>
+        <div><label class="block text-sm font-medium mb-1">Isi Berita (English)</label><textarea name="content_en" rows="8" data-rich-editor class="w-full border rounded-lg px-3 py-2 text-sm">{{ old('content_en', $news->content_en) }}</textarea></div>
         <div>
             @if ($news->thumbnail)
                 <img src="{{ asset('storage/'.$news->thumbnail) }}" class="h-24 rounded-lg mb-2">

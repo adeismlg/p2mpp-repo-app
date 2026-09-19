@@ -25,8 +25,11 @@ class CourseController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
+            'name_en' => 'nullable|string|max:255',
             'description' => 'nullable|string',
+            'description_en' => 'nullable|string',
             'facilities' => 'nullable|string',
+            'facilities_en' => 'nullable|string',
             'thumbnail' => 'nullable|image|max:4096',
         ]);
 
@@ -37,8 +40,11 @@ class CourseController extends Controller
 
         Course::create([
             'name' => $data['name'],
+            'name_en' => $data['name_en'] ?? null,
             'description' => $data['description'] ?? null,
+            'description_en' => $data['description_en'] ?? null,
             'facilities' => $this->parseFacilities($data['facilities'] ?? ''),
+            'facilities_en' => $this->parseFacilities($data['facilities_en'] ?? ''),
             'thumbnail' => $thumbnailPath,
         ]);
 
@@ -54,14 +60,20 @@ class CourseController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
+            'name_en' => 'nullable|string|max:255',
             'description' => 'nullable|string',
+            'description_en' => 'nullable|string',
             'facilities' => 'nullable|string',
+            'facilities_en' => 'nullable|string',
             'thumbnail' => 'nullable|image|max:4096',
         ]);
 
         $course->name = $data['name'];
+        $course->name_en = $data['name_en'] ?? null;
         $course->description = $data['description'] ?? null;
+        $course->description_en = $data['description_en'] ?? null;
         $course->facilities = $this->parseFacilities($data['facilities'] ?? '');
+        $course->facilities_en = $this->parseFacilities($data['facilities_en'] ?? '');
 
         if ($request->hasFile('thumbnail')) {
             if ($course->thumbnail) {

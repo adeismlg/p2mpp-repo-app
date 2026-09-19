@@ -12,7 +12,14 @@ class News extends Model
 
     protected $table = 'news';
 
-    protected $fillable = ['title', 'slug', 'excerpt', 'content', 'thumbnail', 'published_at'];
+    protected $fillable = ['title', 'title_en', 'slug', 'excerpt', 'excerpt_en', 'content', 'content_en', 'thumbnail', 'published_at'];
+
+    public function localized(string $attribute): mixed
+    {
+        return app()->getLocale() === 'en' && filled($this->getAttribute($attribute.'_en'))
+            ? $this->getAttribute($attribute.'_en')
+            : $this->getAttribute($attribute);
+    }
 
     protected $casts = [
         'published_at' => 'datetime',

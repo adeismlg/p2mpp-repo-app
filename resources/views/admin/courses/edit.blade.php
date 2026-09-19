@@ -13,13 +13,19 @@
             <label class="block text-sm font-medium mb-1">Nama Pelatihan</label>
             <input type="text" name="name" value="{{ old('name', $course->name) }}" class="w-full border rounded-lg px-3 py-2 text-sm" required>
         </div>
+        <div><label class="block text-sm font-medium mb-1">Nama Pelatihan (English)</label><input type="text" name="name_en" value="{{ old('name_en', $course->name_en) }}" class="w-full border rounded-lg px-3 py-2 text-sm"></div>
         <div>
             <label class="block text-sm font-medium mb-1">Deskripsi</label>
             <textarea name="description" rows="4" class="w-full border rounded-lg px-3 py-2 text-sm">{{ old('description', $course->description) }}</textarea>
         </div>
+        <div><label class="block text-sm font-medium mb-1">Deskripsi (English)</label><textarea name="description_en" rows="4" class="w-full border rounded-lg px-3 py-2 text-sm">{{ old('description_en', $course->description_en) }}</textarea></div>
         <div>
             <label class="block text-sm font-medium mb-1">Fasilitas (satu poin per baris)</label>
             <textarea name="facilities" rows="4" class="w-full border rounded-lg px-3 py-2 text-sm">{{ old('facilities', implode("\n", $course->facilities ?? [])) }}</textarea>
+        </div>
+        <div>
+            <label class="block text-sm font-medium mb-1">Fasilitas (English, satu poin per baris)</label>
+            <textarea name="facilities_en" rows="4" class="w-full border rounded-lg px-3 py-2 text-sm">{{ old('facilities_en', implode("\n", $course->facilities_en ?? [])) }}</textarea>
         </div>
         <div>
             @if ($course->thumbnail)

@@ -23,6 +23,10 @@
             <label class="block text-sm font-medium mb-1">Label</label>
             <input type="text" name="label" value="{{ old('label', $item->label) }}" class="w-full border rounded-lg px-3 py-2 text-sm" required>
         </div>
+        <div>
+            <label class="block text-sm font-medium mb-1">Label (English)</label>
+            <input type="text" name="label_en" value="{{ old('label_en', $item->label_en) }}" class="w-full border rounded-lg px-3 py-2 text-sm">
+        </div>
 
         <div>
             <label class="block text-sm font-medium mb-1">Tipe Tautan</label>

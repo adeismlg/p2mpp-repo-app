@@ -12,14 +12,17 @@
             <label class="block text-sm font-medium mb-1">Judul</label>
             <input type="text" name="title" value="{{ old('title') }}" class="w-full border rounded-lg px-3 py-2 text-sm" required>
         </div>
+        <div><label class="block text-sm font-medium mb-1">Judul (English)</label><input type="text" name="title_en" value="{{ old('title_en') }}" class="w-full border rounded-lg px-3 py-2 text-sm"></div>
         <div>
             <label class="block text-sm font-medium mb-1">Ringkasan Singkat</label>
             <input type="text" name="excerpt" value="{{ old('excerpt') }}" class="w-full border rounded-lg px-3 py-2 text-sm">
         </div>
+        <div><label class="block text-sm font-medium mb-1">Ringkasan Singkat (English)</label><input type="text" name="excerpt_en" value="{{ old('excerpt_en') }}" class="w-full border rounded-lg px-3 py-2 text-sm"></div>
         <div>
             <label class="block text-sm font-medium mb-1">Isi Berita</label>
             <textarea name="content" rows="8" data-rich-editor class="w-full border rounded-lg px-3 py-2 text-sm" required>{{ old('content') }}</textarea>
         </div>
+        <div><label class="block text-sm font-medium mb-1">Isi Berita (English)</label><textarea name="content_en" rows="8" data-rich-editor class="w-full border rounded-lg px-3 py-2 text-sm">{{ old('content_en') }}</textarea></div>
         <div>
             <label class="block text-sm font-medium mb-1">Gambar Sampul (opsional)</label>
             <input type="file" name="thumbnail" class="w-full border rounded-lg px-3 py-2 text-sm">

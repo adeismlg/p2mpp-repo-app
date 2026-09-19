@@ -12,8 +12,16 @@
             <input type="text" name="title" value="{{ old('title') }}" class="w-full border rounded-lg px-3 py-2 text-sm" required>
         </div>
         <div>
+            <label class="block text-sm font-medium mb-1">Judul Halaman (English)</label>
+            <input type="text" name="title_en" value="{{ old('title_en') }}" class="w-full border rounded-lg px-3 py-2 text-sm">
+        </div>
+        <div>
             <label class="block text-sm font-medium mb-1">Konten (boleh pakai HTML dasar: &lt;p&gt;, &lt;strong&gt;, &lt;ul&gt;, dst.)</label>
             <textarea name="content" rows="12" data-rich-editor class="w-full border rounded-lg px-3 py-2 text-sm">{{ old('content') }}</textarea>
+        </div>
+        <div>
+            <label class="block text-sm font-medium mb-1">Konten (English)</label>
+            <textarea name="content_en" rows="12" data-rich-editor class="w-full border rounded-lg px-3 py-2 text-sm">{{ old('content_en') }}</textarea>
         </div>
         <div class="flex items-center gap-2">
             <input type="checkbox" name="is_published" id="is_published" value="1" checked class="rounded">

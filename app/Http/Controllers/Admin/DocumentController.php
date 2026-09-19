@@ -36,7 +36,9 @@ class DocumentController extends Controller
         $data = $request->validate([
             'document_category_id' => 'nullable|exists:document_categories,id',
             'title' => 'required|string|max:255',
+            'title_en' => 'nullable|string|max:255',
             'description' => 'nullable|string',
+            'description_en' => 'nullable|string',
             'is_public' => 'nullable|boolean',
             'file' => 'required|file|max:20480|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,zip',
         ]);
@@ -47,7 +49,9 @@ class DocumentController extends Controller
         Document::create([
             'document_category_id' => $data['document_category_id'] ?? null,
             'title' => $data['title'],
+            'title_en' => $data['title_en'] ?? null,
             'description' => $data['description'] ?? null,
+            'description_en' => $data['description_en'] ?? null,
             'is_public' => $request->boolean('is_public', true),
             'file_path' => $storedPath,
             'file_name' => $file->getClientOriginalName(),
@@ -71,13 +75,17 @@ class DocumentController extends Controller
         $data = $request->validate([
             'document_category_id' => 'nullable|exists:document_categories,id',
             'title' => 'required|string|max:255',
+            'title_en' => 'nullable|string|max:255',
             'description' => 'nullable|string',
+            'description_en' => 'nullable|string',
             'is_public' => 'nullable|boolean',
             'file' => 'nullable|file|max:20480|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,zip',
         ]);
 
         $document->title = $data['title'];
+        $document->title_en = $data['title_en'] ?? null;
         $document->description = $data['description'] ?? null;
+        $document->description_en = $data['description_en'] ?? null;
         $document->document_category_id = $data['document_category_id'] ?? null;
         $document->is_public = $request->boolean('is_public', true);
 

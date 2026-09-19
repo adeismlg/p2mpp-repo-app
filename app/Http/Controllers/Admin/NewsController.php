@@ -25,8 +25,11 @@ class NewsController extends Controller
     {
         $data = $request->validate([
             'title' => 'required|string|max:255',
+            'title_en' => 'nullable|string|max:255',
             'excerpt' => 'nullable|string|max:255',
+            'excerpt_en' => 'nullable|string|max:255',
             'content' => 'required|string',
+            'content_en' => 'nullable|string',
             'thumbnail' => 'nullable|image|max:4096',
             'published' => 'nullable|boolean',
         ]);
@@ -38,8 +41,11 @@ class NewsController extends Controller
 
         News::create([
             'title' => $data['title'],
+            'title_en' => $data['title_en'] ?? null,
             'excerpt' => $data['excerpt'] ?? null,
+            'excerpt_en' => $data['excerpt_en'] ?? null,
             'content' => $data['content'],
+            'content_en' => $data['content_en'] ?? null,
             'thumbnail' => $thumbnailPath,
             'published_at' => $request->boolean('published') ? now() : null,
         ]);
@@ -56,15 +62,21 @@ class NewsController extends Controller
     {
         $data = $request->validate([
             'title' => 'required|string|max:255',
+            'title_en' => 'nullable|string|max:255',
             'excerpt' => 'nullable|string|max:255',
+            'excerpt_en' => 'nullable|string|max:255',
             'content' => 'required|string',
+            'content_en' => 'nullable|string',
             'thumbnail' => 'nullable|image|max:4096',
             'published' => 'nullable|boolean',
         ]);
 
         $news->title = $data['title'];
+        $news->title_en = $data['title_en'] ?? null;
         $news->excerpt = $data['excerpt'] ?? null;
+        $news->excerpt_en = $data['excerpt_en'] ?? null;
         $news->content = $data['content'];
+        $news->content_en = $data['content_en'] ?? null;
         $news->published_at = $request->boolean('published') ? ($news->published_at ?? now()) : null;
 
         if ($request->hasFile('thumbnail')) {

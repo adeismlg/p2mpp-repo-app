@@ -13,8 +13,16 @@
             <input type="text" name="title" value="{{ old('title', $page->title) }}" class="w-full border rounded-lg px-3 py-2 text-sm" required>
         </div>
         <div>
+            <label class="block text-sm font-medium mb-1">Judul Halaman (English)</label>
+            <input type="text" name="title_en" value="{{ old('title_en', $page->title_en) }}" class="w-full border rounded-lg px-3 py-2 text-sm">
+        </div>
+        <div>
             <label class="block text-sm font-medium mb-1">Konten</label>
             <textarea name="content" rows="12" data-rich-editor class="w-full border rounded-lg px-3 py-2 text-sm">{{ old('content', $page->content) }}</textarea>
+        </div>
+        <div>
+            <label class="block text-sm font-medium mb-1">Konten (English)</label>
+            <textarea name="content_en" rows="12" data-rich-editor class="w-full border rounded-lg px-3 py-2 text-sm">{{ old('content_en', $page->content_en) }}</textarea>
         </div>
         <div class="flex items-center gap-2">
             <input type="checkbox" name="is_published" id="is_published" value="1" @checked(old('is_published', $page->is_published)) class="rounded">

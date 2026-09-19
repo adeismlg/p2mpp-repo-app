@@ -100,6 +100,7 @@ class MenuController extends Controller
         $data = $request->validate([
             'parent_id' => 'nullable|exists:menu_items,id',
             'label' => 'required|string|max:255',
+            'label_en' => 'nullable|string|max:255',
             'type' => 'required|in:route,page,external',
             'route_name' => 'required_if:type,route|nullable|string',
             'page_id' => 'required_if:type,page|nullable|exists:pages,id',

@@ -8,7 +8,7 @@
     <meta property="og:title" content="@yield('title', 'P2MPP Polinema')">
     <meta property="og:description" content="@yield('meta_description', 'Website resmi P2MPP Politeknik Negeri Malang — SPMI, akreditasi, pelatihan, berita, dan repository dokumen.')">
     <meta property="og:type" content="website">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+    <link rel="icon" type="image/png" href="{{ asset('images/logo-polinema.png') }}">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -27,8 +27,9 @@
 
     <header class="bg-white border-b sticky top-0 z-40">
         <div class="max-w-6xl mx-auto px-4 flex items-center justify-between h-16">
-            <a href="{{ route('home') }}" class="font-bold text-lg text-indigo-700 leading-tight">
-                P2MPP <span class="block text-[10px] font-medium text-slate-400 uppercase tracking-wide">Politeknik Negeri Malang</span>
+            <a href="{{ route('home') }}" class="inline-flex items-center gap-3 font-bold text-lg text-indigo-700 leading-tight">
+                <img src="{{ asset('images/logo-polinema.png') }}" alt="Logo Politeknik Negeri Malang" class="h-11 w-11 object-contain">
+                <span>P2MPP <span class="block text-[10px] font-medium text-slate-400 uppercase tracking-wide">Politeknik Negeri Malang</span></span>
             </a>
 
             <nav class="hidden lg:flex items-center gap-1 text-sm font-medium">
@@ -37,12 +38,12 @@
                         <a href="{{ $item->resolvedUrl() }}"
                            @if ($item->open_in_new_tab) target="_blank" rel="noopener" @endif
                            class="px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-indigo-700">
-                            {{ $item->label }}
+                            {{ $item->localizedLabel() }}
                         </a>
                     @else
                         <div class="relative group">
                             <button type="button" class="px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-indigo-700 inline-flex items-center gap-1">
-                                {{ $item->label }}
+                                {{ $item->localizedLabel() }}
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                                 </svg>
@@ -53,7 +54,7 @@
                                         <a href="{{ $child->resolvedUrl() }}"
                                            @if ($child->open_in_new_tab) target="_blank" rel="noopener" @endif
                                            class="block px-4 py-2 text-sm hover:bg-slate-50 hover:text-indigo-700">
-                                            {{ $child->label }}
+                                            {{ $child->localizedLabel() }}
                                         </a>
                                     @endforeach
                                 </div>
@@ -63,9 +64,9 @@
                 @endforeach
             </nav>
 
-            <a href="{{ route('documents.index') }}" class="hidden lg:inline-flex bg-indigo-600 text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-indigo-700">
+            {{-- <a href="{{ route('documents.index') }}" class="hidden lg:inline-flex bg-indigo-600 text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-indigo-700">
                 Repository Dokumen
-            </a>
+            </a> --}}
 
             <button id="mobile-menu-btn" class="lg:hidden p-2 -mr-2" aria-label="Buka menu" aria-expanded="false">
                 <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -81,18 +82,18 @@
             <div class="px-4 py-3 flex flex-col gap-1 text-sm font-medium">
                 @foreach ($mainMenu as $item)
                     @if ($item->children->isEmpty())
-                        <a href="{{ $item->resolvedUrl() }}" class="py-2 hover:text-indigo-700">{{ $item->label }}</a>
+                        <a href="{{ $item->resolvedUrl() }}" class="py-2 hover:text-indigo-700">{{ $item->localizedLabel() }}</a>
                     @else
                         <details class="py-1">
                             <summary class="py-1 cursor-pointer list-none flex items-center justify-between">
-                                {{ $item->label }}
+                                {{ $item->localizedLabel() }}
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                                 </svg>
                             </summary>
                             <div class="pl-4 flex flex-col gap-1 mt-1">
                                 @foreach ($item->children as $child)
-                                    <a href="{{ $child->resolvedUrl() }}" class="py-1.5 text-slate-600 hover:text-indigo-700">{{ $child->label }}</a>
+                                    <a href="{{ $child->resolvedUrl() }}" class="py-1.5 text-slate-600 hover:text-indigo-700">{{ $child->localizedLabel() }}</a>
                                 @endforeach
                             </div>
                         </details>

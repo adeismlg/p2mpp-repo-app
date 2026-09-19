@@ -15,7 +15,22 @@ class DocumentFactory extends Factory
     public function definition(): array
     {
         $extension = fake()->randomElement(['pdf', 'docx', 'xlsx', 'pptx']);
-        $title = fake()->sentence(4);
+        $title = fake()->randomElement([
+            'Panduan Pengajuan Dokumen',
+            'Formulir Evaluasi Pembelajaran',
+            'Laporan Audit Mutu Internal',
+            'Pedoman Pelaksanaan Kegiatan',
+            'Template Rencana Kerja',
+            'Instrumen Survei Kepuasan',
+        ]);
+        $titleEn = [
+            'Panduan Pengajuan Dokumen' => 'Document Submission Guide',
+            'Formulir Evaluasi Pembelajaran' => 'Learning Evaluation Form',
+            'Laporan Audit Mutu Internal' => 'Internal Quality Audit Report',
+            'Pedoman Pelaksanaan Kegiatan' => 'Activity Implementation Guide',
+            'Template Rencana Kerja' => 'Work Plan Template',
+            'Instrumen Survei Kepuasan' => 'Satisfaction Survey Instrument',
+        ][$title];
         $fileName = Str::slug($title).'-'.fake()->unique()->numerify('####').'.'.$extension;
 
         return [
@@ -23,7 +38,17 @@ class DocumentFactory extends Factory
                 ?? DocumentCategory::factory(),
             'uploaded_by' => null,
             'title' => rtrim($title, '.'),
-            'description' => fake()->sentence(15),
+            'title_en' => $titleEn,
+            'description' => fake()->randomElement([
+                'Dokumen resmi untuk mendukung pelaksanaan kegiatan dan layanan P2MPP.',
+                'Panduan dan formulir yang dapat digunakan oleh civitas akademika.',
+                'Dokumen pendukung sistem penjaminan mutu internal.',
+            ]),
+            'description_en' => fake()->randomElement([
+                'An official document supporting P2MPP activities and services.',
+                'A guide and form for use by the academic community.',
+                'A supporting document for the internal quality assurance system.',
+            ]),
             'file_path' => $fileName,
             'file_name' => $fileName,
             'file_type' => $extension,
@@ -45,6 +70,7 @@ class DocumentFactory extends Factory
                     $document->file_path,
                     "Ini adalah dokumen contoh (dummy) untuk keperluan demo.\n\n".
                     "Judul: {$document->title}\n".
+                    "English title: {$document->title_en}\n".
                     "Dibuat otomatis oleh DocumentFactory.\n"
                 );
             }

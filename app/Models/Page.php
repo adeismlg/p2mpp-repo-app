@@ -10,7 +10,14 @@ class Page extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'slug', 'content', 'is_published'];
+    protected $fillable = ['title', 'title_en', 'slug', 'content', 'content_en', 'is_published'];
+
+    public function localized(string $attribute): mixed
+    {
+        return app()->getLocale() === 'en' && filled($this->getAttribute($attribute.'_en'))
+            ? $this->getAttribute($attribute.'_en')
+            : $this->getAttribute($attribute);
+    }
 
     protected $casts = [
         'is_published' => 'boolean',

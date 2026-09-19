@@ -15,6 +15,7 @@ class MenuItem extends Model
     protected $fillable = [
         'parent_id',
         'label',
+        'label_en',
         'type',
         'route_name',
         'page_id',
@@ -22,6 +23,13 @@ class MenuItem extends Model
         'open_in_new_tab',
         'order',
     ];
+
+    public function localizedLabel(): string
+    {
+        return app()->getLocale() === 'en' && filled($this->label_en)
+            ? $this->label_en
+            : $this->label;
+    }
 
     protected $casts = [
         'open_in_new_tab' => 'boolean',
@@ -52,7 +60,7 @@ class MenuItem extends Model
             'home' => 'Beranda',
             'news.index' => 'Berita',
             'courses.index' => 'Pelatihan',
-            'documents.index' => 'Repository Dokumen',
+            // 'documents.index' => 'Repository Dokumen',
         ];
     }
 

@@ -13,6 +13,7 @@
             <label class="block text-sm font-medium mb-1">Judul Dokumen</label>
             <input type="text" name="title" value="{{ old('title', $document->title) }}" class="w-full border rounded-lg px-3 py-2 text-sm" required>
         </div>
+        <div><label class="block text-sm font-medium mb-1">Judul Dokumen (English)</label><input type="text" name="title_en" value="{{ old('title_en', $document->title_en) }}" class="w-full border rounded-lg px-3 py-2 text-sm"></div>
         <div>
             <label class="block text-sm font-medium mb-1">Kategori</label>
             <select name="document_category_id" class="w-full border rounded-lg px-3 py-2 text-sm">
@@ -28,6 +29,7 @@
             <label class="block text-sm font-medium mb-1">Deskripsi</label>
             <textarea name="description" rows="3" class="w-full border rounded-lg px-3 py-2 text-sm">{{ old('description', $document->description) }}</textarea>
         </div>
+        <div><label class="block text-sm font-medium mb-1">Deskripsi (English)</label><textarea name="description_en" rows="3" class="w-full border rounded-lg px-3 py-2 text-sm">{{ old('description_en', $document->description_en) }}</textarea></div>
         <div>
             <p class="text-sm text-slate-500 mb-1">File saat ini: <strong>{{ $document->file_name }}</strong> ({{ $document->formatted_size }})</p>
             <label class="block text-sm font-medium mb-1">Ganti file (opsional)</label>

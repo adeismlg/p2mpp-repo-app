@@ -10,10 +10,20 @@ class Course extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'slug', 'description', 'facilities', 'thumbnail'];
+    protected $fillable = ['name', 'name_en', 'slug', 'description', 'description_en', 'facilities', 'facilities_en', 'thumbnail'];
+
+    public function localized(string $attribute): mixed
+    {
+        $value = app()->getLocale() === 'en' && filled($this->getAttribute($attribute.'_en'))
+            ? $this->getAttribute($attribute.'_en')
+            : $this->getAttribute($attribute);
+
+        return $value;
+    }
 
     protected $casts = [
         'facilities' => 'array',
+        'facilities_en' => 'array',
     ];
 
     protected static function booted(): void

@@ -15,7 +15,9 @@ class Document extends Model
         'document_category_id',
         'uploaded_by',
         'title',
+        'title_en',
         'description',
+        'description_en',
         'file_path',
         'file_name',
         'file_type',
@@ -23,6 +25,13 @@ class Document extends Model
         'downloads_count',
         'is_public',
     ];
+
+    public function localized(string $attribute): mixed
+    {
+        return app()->getLocale() === 'en' && filled($this->getAttribute($attribute.'_en'))
+            ? $this->getAttribute($attribute.'_en')
+            : $this->getAttribute($attribute);
+    }
 
     protected $casts = [
         'is_public' => 'boolean',
@@ -51,7 +60,9 @@ class Document extends Model
 
         return $query->where(function (Builder $q) use ($term) {
             $q->where('title', 'like', "%{$term}%")
-              ->orWhere('description', 'like', "%{$term}%");
+              ->orWhere('description', 'like', "%{$term}%")
+              ->orWhere('title_en', 'like', "%{$term}%")
+              ->orWhere('description_en', 'like', "%{$term}%");
         });
     }
 

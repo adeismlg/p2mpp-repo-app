@@ -12,6 +12,7 @@
             <label class="block text-sm font-medium mb-1">Judul Dokumen</label>
             <input type="text" name="title" value="{{ old('title') }}" class="w-full border rounded-lg px-3 py-2 text-sm" required>
         </div>
+        <div><label class="block text-sm font-medium mb-1">Judul Dokumen (English)</label><input type="text" name="title_en" value="{{ old('title_en') }}" class="w-full border rounded-lg px-3 py-2 text-sm"></div>
         <div>
             <label class="block text-sm font-medium mb-1">Kategori</label>
             <select name="document_category_id" class="w-full border rounded-lg px-3 py-2 text-sm">
@@ -27,6 +28,7 @@
             <label class="block text-sm font-medium mb-1">Deskripsi</label>
             <textarea name="description" rows="3" class="w-full border rounded-lg px-3 py-2 text-sm">{{ old('description') }}</textarea>
         </div>
+        <div><label class="block text-sm font-medium mb-1">Deskripsi (English)</label><textarea name="description_en" rows="3" class="w-full border rounded-lg px-3 py-2 text-sm">{{ old('description_en') }}</textarea></div>
         <div>
             <label class="block text-sm font-medium mb-1">File (pdf, doc, docx, xls, xlsx, ppt, pptx, zip — maks 20MB)</label>
             <input type="file" name="file" class="w-full border rounded-lg px-3 py-2 text-sm" required>
