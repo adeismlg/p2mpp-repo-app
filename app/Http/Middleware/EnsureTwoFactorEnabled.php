@@ -22,7 +22,7 @@ class EnsureTwoFactorEnabled
     {
         $user = $request->user();
 
-        if ($user && $user->isStaff() && ! $user->two_factor_secret) {
+        if ($user && $user->isStaff() && ! $user->hasEnabledTwoFactorAuthentication()) {
             return redirect()->route('profile.edit')
                 ->with('status', 'Demi keamanan, aktifkan 2FA sebelum melanjutkan.');
         }

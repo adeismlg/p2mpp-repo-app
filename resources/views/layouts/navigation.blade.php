@@ -1,3 +1,4 @@
+@auth
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -98,3 +99,23 @@
         </div>
     </div>
 </nav>
+@else
+<nav class="bg-white border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+            <a href="{{ route('home') }}" class="font-semibold text-gray-800">
+                {{ config('app.name', 'Laravel') }}
+            </a>
+
+            <div class="flex items-center gap-6 text-sm text-gray-600">
+                <a href="{{ route('documents.index') }}" class="hover:text-gray-900">Dokumen</a>
+                <a href="{{ route('courses.index') }}" class="hover:text-gray-900">Pelatihan</a>
+                <a href="{{ route('news.index') }}" class="hover:text-gray-900">Berita</a>
+                @if (Route::has('login'))
+                    <a href="{{ route('login') }}" class="font-medium text-indigo-600 hover:text-indigo-800">Masuk</a>
+                @endif
+            </div>
+        </div>
+    </div>
+</nav>
+@endauth

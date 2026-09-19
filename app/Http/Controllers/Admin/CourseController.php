@@ -42,7 +42,7 @@ class CourseController extends Controller
             'thumbnail' => $thumbnailPath,
         ]);
 
-        return redirect()->route('admin.courses.index')->with('status', 'Program berhasil ditambahkan.');
+        return redirect()->route('admin.courses.index')->with('status', 'Pelatihan berhasil ditambahkan.');
     }
 
     public function edit(Course $course)
@@ -72,7 +72,7 @@ class CourseController extends Controller
 
         $course->save();
 
-        return redirect()->route('admin.courses.index')->with('status', 'Program berhasil diperbarui.');
+        return redirect()->route('admin.courses.index')->with('status', 'Pelatihan berhasil diperbarui.');
     }
 
     public function destroy(Course $course)
@@ -82,7 +82,7 @@ class CourseController extends Controller
         }
         $course->delete();
 
-        return back()->with('status', 'Program berhasil dihapus.');
+        return back()->with('status', 'Pelatihan berhasil dihapus.');
     }
 
     private function parseFacilities(string $raw): array

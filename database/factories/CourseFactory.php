@@ -12,24 +12,23 @@ class CourseFactory extends Factory
     public function definition(): array
     {
         $name = fake()->unique()->randomElement([
-            'Bahasa Inggris',
-            'Bahasa Jepang',
-            'Bahasa Mandarin',
-            'Bahasa Prancis',
-            'Bahasa Indonesia untuk Penutur Asing (BIPA)',
-            'Bahasa Korea',
+            'Pekerti',
+            'Applied Approach (AA)',
+            'Perangkat dan Media Pembelajaran bagi Dosen',
+            'Penyusunan Kurikulum',
+            'Pelatihan Auditor Mutu Internal',
+            'Metodologi Pembelajaran Praktik Vokasi',
         ]);
 
         return [
             'name' => $name,
             'description' => fake()->paragraph(3),
             'facilities' => fake()->randomElements([
-                'Modul belajar digital',
-                'Simulasi ujian',
-                'Sertifikat kelulusan',
-                'Kelas tatap muka',
-                'Konsultasi pengajar',
-                'Akses perpustakaan bahasa',
+                'Materi & modul pelatihan',
+                'Sertifikat pelatihan',
+                'Narasumber berpengalaman',
+                'Sesi praktik/simulasi',
+                'Pendampingan pasca-pelatihan',
             ], fake()->numberBetween(2, 4)),
         ];
     }

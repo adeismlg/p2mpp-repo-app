@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.public')
 
 @section('content')
     <section class="bg-gradient-to-br from-indigo-700 to-indigo-500 text-white">
@@ -38,7 +38,7 @@
 
     <section class="bg-white border-y">
         <div class="max-w-6xl mx-auto px-4 py-16">
-            <h2 class="text-xl font-bold mb-6">Program</h2>
+            <h2 class="text-xl font-bold mb-6">Pelatihan</h2>
             <div class="grid md:grid-cols-4 gap-5">
                 @foreach ($courses as $course)
                     <a href="{{ route('courses.show', $course) }}" class="block border rounded-xl p-5 hover:shadow-md transition">

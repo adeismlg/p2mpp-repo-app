@@ -29,7 +29,7 @@
                 ['label' => 'Total Dokumen', 'value' => $stats['documents'], 'from' => 'from-indigo-500', 'to' => 'to-indigo-600', 'icon' => 'doc'],
                 ['label' => 'Kategori', 'value' => $stats['categories'], 'from' => 'from-violet-500', 'to' => 'to-violet-600', 'icon' => 'folder'],
                 ['label' => 'Berita', 'value' => $stats['news'], 'from' => 'from-pink-500', 'to' => 'to-pink-600', 'icon' => 'news'],
-                ['label' => 'Program', 'value' => $stats['courses'], 'from' => 'from-emerald-500', 'to' => 'to-emerald-600', 'icon' => 'book'],
+                ['label' => 'Pelatihan', 'value' => $stats['courses'], 'from' => 'from-emerald-500', 'to' => 'to-emerald-600', 'icon' => 'book'],
                 ['label' => 'Total Unduhan', 'value' => $stats['downloads'], 'from' => 'from-amber-500', 'to' => 'to-amber-600', 'icon' => 'download'],
             ];
         @endphp

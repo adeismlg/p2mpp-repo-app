@@ -1,16 +1,16 @@
 @extends('layouts.admin')
 
-@section('title', 'Edit Program')
+@section('title', 'Edit Pelatihan')
 
 @section('content')
-    <h1 class="text-2xl font-bold mb-6">Edit Program</h1>
+    <h1 class="text-2xl font-bold mb-6">Edit Pelatihan</h1>
 
     <form action="{{ route('admin.courses.update', $course) }}" method="POST" enctype="multipart/form-data"
           class="bg-white border rounded-xl p-6 max-w-xl space-y-4">
         @csrf
         @method('PUT')
         <div>
-            <label class="block text-sm font-medium mb-1">Nama Program</label>
+            <label class="block text-sm font-medium mb-1">Nama Pelatihan</label>
             <input type="text" name="name" value="{{ old('name', $course->name) }}" class="w-full border rounded-lg px-3 py-2 text-sm" required>
         </div>
         <div>

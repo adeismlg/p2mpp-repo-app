@@ -6,7 +6,7 @@
     <h1 class="text-2xl font-bold mb-6">Edit Berita</h1>
 
     <form action="{{ route('admin.news.update', $news) }}" method="POST" enctype="multipart/form-data"
-          class="bg-white border rounded-xl p-6 max-w-xl space-y-4">
+          class="bg-white border rounded-xl p-6 lg:p-8 max-w-5xl space-y-5">
         @csrf
         @method('PUT')
         <div>
@@ -19,7 +19,7 @@
         </div>
         <div>
             <label class="block text-sm font-medium mb-1">Isi Berita</label>
-            <textarea name="content" rows="8" class="w-full border rounded-lg px-3 py-2 text-sm" required>{{ old('content', $news->content) }}</textarea>
+            <textarea name="content" rows="8" data-rich-editor class="w-full border rounded-lg px-3 py-2 text-sm" required>{{ old('content', $news->content) }}</textarea>
         </div>
         <div>
             @if ($news->thumbnail)

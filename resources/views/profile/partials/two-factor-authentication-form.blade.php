@@ -22,13 +22,21 @@
         <template x-if="!enabled">
             <div>
                 <p class="text-sm text-gray-600 mb-4">2FA belum aktif di akun kamu.</p>
-                <button
-                    type="button"
-                    x-on:click="enable()"
-                    class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white text-xs font-semibold rounded-md hover:bg-indigo-700"
-                >
-                    Aktifkan 2FA
-                </button>
+                <div class="flex flex-wrap items-center gap-3">
+                    <button
+                        type="button"
+                        x-on:click="enable()"
+                        class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white text-xs font-semibold rounded-md hover:bg-indigo-700"
+                    >
+                        Aktifkan 2FA
+                    </button>
+                    <a href="{{ route('password.confirm') }}" class="text-sm text-indigo-600 underline hover:text-indigo-800">
+                        Konfirmasi password dulu
+                    </a>
+                </div>
+                <p class="text-xs text-gray-500 mt-2">
+                    Untuk mengaktifkan atau menonaktifkan 2FA, konfirmasi password terlebih dahulu.
+                </p>
             </div>
         </template>
 
@@ -91,7 +99,7 @@
 <script>
     function twoFactorAuth() {
         return {
-            enabled: {{ auth()->user()->two_factor_secret ? 'true' : 'false' }},
+            enabled: {{ auth()->user()->hasEnabledTwoFactorAuthentication() ? 'true' : 'false' }},
             confirming: false,
             qrCode: '',
             confirmationCode: '',

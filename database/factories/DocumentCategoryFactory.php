@@ -12,14 +12,14 @@ class DocumentCategoryFactory extends Factory
     public function definition(): array
     {
         $name = fake()->unique()->randomElement([
-            'Formulir Akademik',
-            'Panduan Mahasiswa',
-            'Sertifikasi Bahasa',
-            'Silabus & RPS',
-            'Surat Keterangan',
-            'Materi Kursus',
-            'Pengumuman Resmi',
-            'Template Dokumen',
+            'Standar Mutu Internal',
+            'Borang Akreditasi',
+            'Formulir Monev',
+            'Panduan Audit Mutu Internal',
+            'RPS & Silabus',
+            'Pedoman SPMI',
+            'Laporan Kepuasan Pelanggan',
+            'Dokumen Kebijakan Mutu',
         ]);
 
         return [

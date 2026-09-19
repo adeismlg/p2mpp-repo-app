@@ -1,15 +1,15 @@
 @extends('layouts.admin')
 
-@section('title', 'Program Baru')
+@section('title', 'Pelatihan Baru')
 
 @section('content')
-    <h1 class="text-2xl font-bold mb-6">Program Baru</h1>
+    <h1 class="text-2xl font-bold mb-6">Pelatihan Baru</h1>
 
     <form action="{{ route('admin.courses.store') }}" method="POST" enctype="multipart/form-data"
           class="bg-white border rounded-xl p-6 max-w-xl space-y-4">
         @csrf
         <div>
-            <label class="block text-sm font-medium mb-1">Nama Program</label>
+            <label class="block text-sm font-medium mb-1">Nama Pelatihan</label>
             <input type="text" name="name" value="{{ old('name') }}" class="w-full border rounded-lg px-3 py-2 text-sm" required>
         </div>
         <div>

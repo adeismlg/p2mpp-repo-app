@@ -1,12 +1,12 @@
 @extends('layouts.admin')
 
-@section('title', 'Program')
+@section('title', 'Pelatihan')
 
 @section('content')
     <div class="flex items-center justify-between mb-6">
-        <h1 class="text-2xl font-bold">Program</h1>
+        <h1 class="text-2xl font-bold">Pelatihan</h1>
         <a href="{{ route('admin.courses.create') }}" class="bg-indigo-600 text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-indigo-700">
-            + Program Baru
+            + Pelatihan Baru
         </a>
     </div>
 
