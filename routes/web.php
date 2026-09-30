@@ -127,7 +127,9 @@ Route::middleware(['auth', 'staff'])->prefix('admin')->name('admin.')->group(fun
             ->names('categories')
             ->except(['show']);
 
-        Route::get('staff', [AdminUserController::class, 'index'])->name('users.index');
+         Route::get('staff', [AdminUserController::class, 'index'])->name('users.index');
+        Route::get('staff/baru', [AdminUserController::class, 'create'])->name('users.create');
+        Route::post('staff', [AdminUserController::class, 'store'])->name('users.store');
         Route::put('staff/{user}', [AdminUserController::class, 'update'])->name('users.update');
 
         Route::resource('menu', AdminMenuController::class)->except(['show']);

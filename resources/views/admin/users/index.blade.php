@@ -10,6 +10,12 @@
         dokumen, berita, dan program. <strong>User Biasa</strong> tidak bisa masuk panel sama sekali.
     </p>
 
+    <div class="flex justify-end mb-4">
+        <a href="{{ route('admin.users.create') }}" class="bg-indigo-600 text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-indigo-700">
+            + Tambah Pengguna
+        </a>
+    </div>
+
     <div class="bg-white border rounded-xl overflow-hidden">
         <table class="w-full text-sm">
             <thead class="bg-slate-50 text-slate-500 text-left">
