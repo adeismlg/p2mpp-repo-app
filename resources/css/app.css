@@ -1,3 +1,103 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .page-content h2 {
+        @apply mb-4 mt-10 text-2xl font-bold tracking-tight text-indigo-950;
+    }
+
+    .page-content h2:first-child {
+        @apply mt-0;
+    }
+
+    .page-content h3 {
+        @apply mb-3 mt-8 text-xl font-semibold text-slate-900;
+    }
+
+    .page-content h4 {
+        @apply mb-2 mt-6 text-lg font-semibold text-slate-900;
+    }
+
+    .page-content p {
+        @apply mb-5;
+    }
+
+    .page-content ul {
+        @apply mb-6 list-disc space-y-2 pl-6;
+    }
+
+    .page-content ol {
+        @apply mb-6 list-decimal space-y-2 pl-6;
+    }
+
+    .page-content li {
+        @apply pl-1;
+    }
+
+    .page-content a {
+        @apply font-semibold text-indigo-700 underline decoration-indigo-200 underline-offset-2 hover:text-orange-600;
+    }
+
+    .page-content > :last-child {
+        @apply mb-0;
+    }
+
+    .page-content .page-content-panel {
+        @apply rounded-xl border px-6 py-6;
+    }
+
+    .page-content .page-content-panel--blue {
+        @apply border-sky-200 bg-sky-50 text-slate-700;
+    }
+
+    .page-content .page-content-panel--amber {
+        @apply border-amber-200 bg-amber-50 text-amber-950;
+    }
+
+    .page-content .page-content-panel h3,
+    .page-content .page-content-column h3 {
+        @apply mb-3 mt-0 text-lg font-bold;
+    }
+
+    .page-content .page-content-panel > :last-child,
+    .page-content .page-content-column > :last-child {
+        @apply mb-0;
+    }
+
+    .page-content blockquote {
+        @apply my-5 border-l-4 border-sky-200 bg-sky-50 px-6 py-5 text-slate-700 italic;
+    }
+
+    .page-content .page-content-quote {
+        @apply my-5 border-l-4 border-indigo-300 bg-indigo-50 px-6 py-5 text-indigo-950 italic;
+    }
+
+    .page-content .page-content-quote p {
+        @apply mb-3 mt-0;
+    }
+
+    .page-content .page-content-quote cite {
+        @apply block text-sm not-italic text-indigo-700;
+    }
+
+    .page-content .page-content-columns {
+        @apply grid grid-cols-1 gap-5 md:grid-cols-2;
+    }
+
+    .page-content .page-content-column {
+        @apply rounded-xl border border-slate-200 bg-white p-5;
+    }
+
+    .page-content table {
+        @apply mb-6 w-full border-collapse text-left text-sm;
+    }
+
+    .page-content th {
+        @apply border border-slate-200 bg-indigo-50 px-4 py-3 font-semibold text-indigo-950;
+    }
+
+    .page-content td {
+        @apply border border-slate-200 px-4 py-3 align-top;
+    }
+}

@@ -16,7 +16,7 @@
             <h2 class="text-3xl font-bold text-slate-900">Password baru</h2>
             <p class="mt-2 text-sm text-slate-500">Lengkapi formulir berikut untuk memperbarui password.</p>
 
-            <form method="POST" action="{{ route('password.store') }}" class="mt-9 space-y-7">
+            <form method="POST" action="{{ route('password.update') }}" class="mt-9 space-y-7">
                 @csrf
                 <input type="hidden" name="token" value="{{ $request->route('token') }}">
 

@@ -10,12 +10,12 @@
     <meta property="og:type" content="website">
     <link rel="icon" type="image/png" href="{{ asset('images/logo-polinema.png') }}">
     <script src="https://cdn.tailwindcss.com"></script>
-    @vite(['resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>body{font-family:'Inter',sans-serif}</style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>body{font-family:'Poppins',sans-serif}</style>
 </head>
-<body class="bg-slate-50 text-slate-800">
+<body class="bg-white font-sans text-slate-800">
 
     @php
         // Menu diambil langsung dari database supaya admin bisa atur sendiri
@@ -26,9 +26,9 @@
             ->get();
     @endphp
 
-    <header class="bg-white border-b sticky top-0 z-40">
-        <div class="max-w-6xl mx-auto px-4 flex items-center justify-between h-16">
-            <a href="{{ route('home') }}" class="inline-flex items-center gap-3 font-bold text-lg text-indigo-700 leading-tight">
+    <header class="sticky top-0 z-40 border-b border-indigo-50 bg-white/95 shadow-sm backdrop-blur">
+        <div class="mx-auto flex h-[4.75rem] max-w-7xl items-center justify-between px-5 sm:px-8">
+            <a href="{{ route('home') }}" class="inline-flex items-center gap-3 font-bold text-lg leading-tight text-indigo-950">
                 <img src="{{ asset('images/logo-polinema.png') }}" alt="Logo Politeknik Negeri Malang" class="h-11 w-11 object-contain">
                 <span>P2MPP <span class="block text-[10px] font-medium text-slate-400 uppercase tracking-wide">Politeknik Negeri Malang</span></span>
             </a>
@@ -38,23 +38,23 @@
                     @if ($item->children->isEmpty())
                         <a href="{{ $item->resolvedUrl() }}"
                            @if ($item->open_in_new_tab) target="_blank" rel="noopener" @endif
-                           class="px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-indigo-700">
+                           class="rounded-lg px-3 py-2 transition hover:bg-indigo-50 hover:text-indigo-700">
                             {{ $item->localizedLabel() }}
                         </a>
                     @else
                         <div class="relative group">
-                            <button type="button" class="px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-indigo-700 inline-flex items-center gap-1">
+                            <button type="button" class="inline-flex items-center gap-1 rounded-lg px-3 py-2 transition hover:bg-indigo-50 hover:text-indigo-700">
                                 {{ $item->localizedLabel() }}
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                                 </svg>
                             </button>
                             <div class="absolute left-0 top-full pt-1 hidden group-hover:block min-w-[220px] z-50">
-                                <div class="bg-white border rounded-xl shadow-lg py-2">
+                                <div class="rounded-xl border border-indigo-50 bg-white py-2 shadow-xl shadow-indigo-950/10">
                                     @foreach ($item->children as $child)
                                         <a href="{{ $child->resolvedUrl() }}"
                                            @if ($child->open_in_new_tab) target="_blank" rel="noopener" @endif
-                                           class="block px-4 py-2 text-sm hover:bg-slate-50 hover:text-indigo-700">
+                                           class="block px-4 py-2 text-sm transition hover:bg-indigo-50 hover:text-indigo-700">
                                             {{ $child->localizedLabel() }}
                                         </a>
                                     @endforeach
@@ -71,12 +71,12 @@
                     <span class="text-slate-300">/</span>
                     <a href="{{ route('locale.switch', 'en') }}" class="{{ app()->getLocale() === 'en' ? 'text-indigo-700' : 'text-slate-400 hover:text-indigo-700' }}">EN</a>
                 </div>
-                <a href="{{ route('documents.index') }}" class="inline-flex min-w-[11rem] items-center justify-center text-center bg-indigo-600 text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-indigo-700">
+                <a href="{{ route('documents.index') }}" class="inline-flex min-h-11 min-w-[11rem] items-center justify-center rounded-xl bg-gradient-to-r from-orange-500 to-amber-400 px-4 py-2 text-center text-sm font-semibold text-white shadow-sm shadow-orange-500/20 transition hover:-translate-y-0.5 hover:shadow-md">
                     {{ __('public.document_repository') }}
                 </a>
             </div>
 
-            <button id="mobile-menu-btn" class="lg:hidden p-2 -mr-2" aria-label="{{ __('public.open_menu') }}" aria-expanded="false">
+            <button id="mobile-menu-btn" class="rounded-xl p-2 text-indigo-900 transition hover:bg-indigo-50 lg:hidden" aria-label="{{ __('public.open_menu') }}" aria-expanded="false">
                 <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
@@ -86,7 +86,7 @@
             </button>
         </div>
 
-        <nav id="mobile-menu" class="hidden lg:hidden border-t bg-white">
+        <nav id="mobile-menu" class="hidden border-t border-indigo-50 bg-white lg:hidden">
             <div class="px-4 py-3 flex flex-col gap-1 text-sm font-medium">
                 <div class="flex items-center gap-2 py-2 text-xs font-semibold">
                     <span class="text-slate-400">{{ __('public.language_indonesian') }}:</span>

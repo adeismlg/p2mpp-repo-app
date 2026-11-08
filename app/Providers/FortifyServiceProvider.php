@@ -2,12 +2,15 @@
 
 namespace App\Providers;
 
+use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
-use App\Models\User;
+use App\Http\Responses\LoginResponse;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
+use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract;
+use Laravel\Fortify\Contracts\ResetsUserPasswords;
 use Laravel\Fortify\Contracts\UpdatesUserPasswords;
 use Laravel\Fortify\Fortify;
 
@@ -22,6 +25,8 @@ class FortifyServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->singleton(UpdatesUserPasswords::class, UpdateUserPassword::class);
+        $this->app->singleton(ResetsUserPasswords::class, ResetUserPassword::class);
+        $this->app->singleton(LoginResponseContract::class, LoginResponse::class);
     }
 
     public function boot(): void

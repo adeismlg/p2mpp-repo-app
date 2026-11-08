@@ -52,6 +52,6 @@ class SliderSeeder extends Seeder
             );
         }
 
-        $this->command?->info('Contoh slider berhasil ditambahkan.');
+        $this->command?->info('Slider P2MPP berhasil disinkronkan.');
     }
 }

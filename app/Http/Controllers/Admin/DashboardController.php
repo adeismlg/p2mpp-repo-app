@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\AccreditationEvidence;
 use App\Models\Course;
 use App\Models\Document;
 use App\Models\DocumentCategory;
@@ -44,6 +45,12 @@ class DashboardController extends Controller
 
         $publicCount = Document::where('is_public', true)->count();
         $hiddenCount = $stats['documents'] - $publicCount;
+        $evidenceStats = [
+            'total' => AccreditationEvidence::count(),
+            'complete' => AccreditationEvidence::where('status', 'complete')->count(),
+            'pending' => AccreditationEvidence::whereIn('status', ['draft', 'in_progress'])->count(),
+            'review' => AccreditationEvidence::where('status', 'review')->count(),
+        ];
 
         return view('admin.dashboard', compact(
             'stats',
@@ -51,7 +58,8 @@ class DashboardController extends Controller
             'recentDocuments',
             'categoryStats',
             'publicCount',
-            'hiddenCount'
+            'hiddenCount',
+            'evidenceStats'
         ));
     }
 }

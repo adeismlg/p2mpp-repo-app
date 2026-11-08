@@ -3,12 +3,12 @@
 @section('title', $page->localized('title'))
 
 @section('content')
-<div class="max-w-6xl mx-auto px-4 py-12">
-    <article class="bg-white border rounded-xl p-8 lg:p-12 shadow-sm">
-        <h1 class="text-2xl lg:text-3xl font-bold mb-8">{{ $page->localized('title') }}</h1>
-        <div class="prose max-w-4xl text-slate-700 text-base lg:text-lg leading-8">
-            {!! $page->localized('content') !!}
-        </div>
-    </article>
-</div>
+    <div class="mx-auto max-w-6xl px-4 py-10 md:py-14">
+        <article class="mx-auto max-w-4xl">
+            <h1 class="mb-7 text-2xl font-bold tracking-tight text-indigo-950 md:text-3xl">{{ $page->localized('title') }}</h1>
+            <div class="page-content text-base leading-8 text-slate-700 lg:text-lg">
+                {!! $page->localized('content') !!}
+            </div>
+        </article>
+    </div>
 @endsection

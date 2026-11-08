@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AccreditationEvidenceController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CourseController as AdminCourseController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -120,6 +121,13 @@ Route::middleware(['auth', 'staff'])->prefix('admin')->name('admin.')->group(fun
         ->names('sliders')
         ->except(['show']);
 
+    Route::get('bukti-akreditasi/{accreditation_evidence}/unduh', [AccreditationEvidenceController::class, 'download'])
+        ->name('accreditation-evidences.download');
+    Route::resource('bukti-akreditasi', AccreditationEvidenceController::class)
+        ->parameters(['bukti-akreditasi' => 'accreditation_evidence'])
+        ->names('accreditation-evidences')
+        ->except(['show']);
+
     // Khusus admin: kategori dokumen, manajemen staff, & struktur menu
     Route::middleware('admin')->group(function () {
         Route::resource('kategori', CategoryController::class)
@@ -127,7 +135,7 @@ Route::middleware(['auth', 'staff'])->prefix('admin')->name('admin.')->group(fun
             ->names('categories')
             ->except(['show']);
 
-         Route::get('staff', [AdminUserController::class, 'index'])->name('users.index');
+        Route::get('staff', [AdminUserController::class, 'index'])->name('users.index');
         Route::get('staff/baru', [AdminUserController::class, 'create'])->name('users.create');
         Route::post('staff', [AdminUserController::class, 'store'])->name('users.store');
         Route::put('staff/{user}', [AdminUserController::class, 'update'])->name('users.update');

@@ -41,6 +41,19 @@ class DocumentController extends Controller
     public function download(Document $document)
     {
         abort_unless($document->is_public, 404);
+
+        $source = parse_url($document->file_path);
+
+        if (
+            is_array($source)
+            && ($source['scheme'] ?? null) === 'https'
+            && ($source['host'] ?? null) === 'p2mpp.polinema.ac.id'
+        ) {
+            $document->increment('downloads_count');
+
+            return redirect()->away($document->file_path);
+        }
+
         abort_unless(Storage::disk('documents')->exists($document->file_path), 404);
 
         $document->increment('downloads_count');

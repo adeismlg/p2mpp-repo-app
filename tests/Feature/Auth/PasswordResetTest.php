@@ -41,7 +41,9 @@ class PasswordResetTest extends TestCase
         Notification::assertSentTo($user, ResetPassword::class, function ($notification) {
             $response = $this->get('/reset-password/'.$notification->token);
 
-            $response->assertStatus(200);
+            $response
+                ->assertOk()
+                ->assertSee('action="'.route('password.update').'"', false);
 
             return true;
         });
