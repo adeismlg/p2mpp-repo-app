@@ -25,7 +25,12 @@
             <tbody class="divide-y">
                 @forelse ($pages as $page)
                     <tr>
-                        <td class="px-5 py-3 font-medium">{{ $page->title }}</td>
+                        <td class="px-5 py-3 font-medium">
+                            {{ $page->title }}
+                            @if ($page->slug === 'akreditasi-program-studi')
+                                <span class="ml-2 text-xs font-normal text-indigo-600">Dikelola melalui Akreditasi Prodi</span>
+                            @endif
+                        </td>
                         <td class="px-5 py-3">
                             @if ($page->is_published)
                                 <span class="text-green-600 text-xs font-semibold">Terbit</span>

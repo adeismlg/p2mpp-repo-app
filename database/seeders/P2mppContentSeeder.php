@@ -12,6 +12,57 @@ class P2mppContentSeeder extends Seeder
 {
     private const SOURCE = 'https://p2mpp.polinema.ac.id';
 
+    private const STUDY_PROGRAM_ACCREDITATIONS = [
+        ['63411', 'Administrasi Bisnis', 'D3', 'Baik Sekali'],
+        ['62401', 'Akuntansi', 'D3', 'Unggul'],
+        ['62403', 'Akuntansi (Kampus Kab. Lumajang)', 'D3', 'Baik'],
+        ['62402', 'Akuntansi (Kampus Kota Kediri)', 'D3', 'Baik'],
+        ['62301', 'Akuntansi Manajemen', 'D4', 'Unggul'],
+        ['62306', 'Akuntansi Manajemen (Kampus Kab Pamekasan)', 'D4', 'Baik'],
+        ['79304', 'Bahasa Inggris Untuk Industri Pariwisata', 'D4', 'Baik Sekali'],
+        ['79302', 'Bahasa Inggris untuk Komunikasi Bisnis dan Profesional', 'D4', 'Baik'],
+        ['20304', 'Jaringan Telekomunikasi Digital', 'D4', 'Unggul'],
+        ['61306', 'Keuangan', 'D4', 'Unggul'],
+        ['61315', 'Keuangan (Kampus Kota Kediri)', 'D4', 'Baik'],
+        ['57404', 'Manajemen Informatika (Kampus Kab.Pamekasan)', 'D3', 'Baik'],
+        ['57481', 'Manajemen Informatika (Kampus Kota Kediri)', 'D3', 'Baik'],
+        ['61304', 'Manajemen Pemasaran', 'D4', 'Baik Sekali'],
+        ['22302', 'Manajemen Rekayasa Konstruksi', 'D4', 'Unggul'],
+        ['21525', 'Optimasi Desain Mekanik', 'S3 Terapan', 'Terakreditasi Sementara'],
+        ['24104', 'Optimasi Rekayasa Kimia', 'S2 Terapan', 'Terakreditasi'],
+        ['71302', 'Pengelolaan Arsip dan Rekaman Informasi', 'D4', 'Baik Sekali'],
+        ['58501', 'Pengembangan Perangkat (Piranti) Lunak Situs', 'D2', 'Baik'],
+        ['59111', 'Rekayasa Teknologi Informasi', 'S2 Terapan', 'Baik Sekali'],
+        ['21107', 'Rekayasa Teknologi Manufaktur', 'S2 Terapan', 'Baik Sekali'],
+        ['57182', 'Sistem Informasi Akuntansi', 'S2 Terapan', 'Unggul'],
+        ['57303', 'Sistem Informasi Bisnis', 'D4', 'Unggul'],
+        ['20303', 'Sistem Kelistrikan', 'D4', 'Unggul'],
+        ['20101', 'Teknik Elektro', 'S2 Terapan', 'Unggul'],
+        ['20401', 'Teknik Elektronika', 'D3', 'Unggul'],
+        ['20301', 'Teknik Elektronika', 'D4', 'Unggul'],
+        ['20307', 'Teknik Elektronika (Kampus Kab. Kediri)', 'D4', 'Baik'],
+        ['55301', 'Teknik Informatika', 'D4', 'Unggul'],
+        ['24401', 'Teknik Kimia', 'D3', 'Unggul'],
+        ['20403', 'Teknik Listrik', 'D3', 'Unggul'],
+        ['21401', 'Teknik Mesin', 'D3', 'Unggul'],
+        ['21411', 'Teknik Mesin (Kampus Kota Kediri)', 'D3', 'Baik'],
+        ['21302', 'Teknik Mesin Produksi dan Perawatan', 'D4', 'Unggul'],
+        ['21301', 'Teknik Mesin Produksi dan Perawatan (Kampus Kota Kediri)', 'D4', 'Baik'],
+        ['21303', 'Teknik Otomotif Elektronik', 'D4', 'Unggul'],
+        ['21310', 'Teknik Otomotif Elektronik (Kampus Kab. Pamekasan)', 'D4', 'Baik'],
+        ['22401', 'Teknik Sipil', 'D3', 'Unggul'],
+        ['20402', 'Teknik Telekomunikasi', 'D3', 'Unggul'],
+        ['56401', 'Teknologi Informasi (Kampus Kab Lumajang)', 'D3', 'Baik'],
+        ['24305', 'Teknologi Kimia Industri', 'D4', 'Unggul'],
+        ['22402', 'Teknologi Konstruksi Jalan, Jembatan, dan Bangunan Air', 'D3', 'Unggul'],
+        ['40407', 'Teknologi Pemeliharaan Pesawat Udara', 'D3', 'Baik'],
+        ['31201', 'Teknologi Pertambangan', 'D3', 'Baik Sekali'],
+        ['22301', 'Teknologi Rekayasa Konstruksi Jalan Dan Jembatan', 'D4', 'Baik'],
+        ['21304', 'Teknologi Rekayasa Otomotif (Kampus Kab. Lumajang)', 'D4', 'Baik'],
+        ['22408', 'Teknologi Sipil (Kampus Kab Lumajang)', 'D3', 'Baik'],
+        ['93301', 'Usaha Perjalanan Wisata', 'D4', 'Baik'],
+    ];
+
     public function run(): void
     {
         $pages = [
@@ -61,31 +112,27 @@ class P2mppContentSeeder extends Seeder
                 'title' => 'Akreditasi Institusi',
                 'title_en' => 'Institutional Accreditation',
                 'source' => '/tampilan/accreditation#institution',
-                'content' => '<p>Menurut daftar akreditasi yang ditampilkan P2MPP, Politeknik Negeri Malang memperoleh peringkat Unggul pada 2025 dengan masa berlaku hingga 4 Juni 2030. Halaman sumber juga menyediakan tautan ke sertifikat dan riwayat akreditasi institusi.</p>',
-                'content_en' => '<p>According to the accreditation listing on P2MPP, Politeknik Negeri Malang received an Unggul rating in 2025, valid through 4 June 2030. The source page also links to the certificate and earlier institutional accreditation records.</p>',
+                'content' => '<p>Politeknik Negeri Malang, Kota Malang memperoleh peringkat Akreditasi Unggul dari Badan Akreditasi Nasional Perguruan Tinggi (BAN-PT) berdasarkan Surat Keputusan Direktur Dewan Eksekutif BAN-PT No. 2314/SK/BAN-PT/Ak/PT/VI/2025.</p><p>Sertifikat akreditasi institusi berlaku sejak 4 Juni 2025 sampai dengan 4 Juni 2030.</p>',
+                'content_en' => '<p>Malang State Polytechnic, Malang, received the Unggul (Excellent) institutional accreditation rating from the National Accreditation Board for Higher Education (BAN-PT), based on the Executive Board Director’s Decree No. 2314/SK/BAN-PT/Ak/PT/VI/2025.</p><p>The institutional accreditation certificate is valid from 4 June 2025 through 4 June 2030.</p>',
             ],
             [
                 'slug' => 'akreditasi-program-studi',
                 'title' => 'Akreditasi Program Studi',
                 'title_en' => 'Study Program Accreditation',
                 'source' => '/tampilan/accreditation#prodi',
-                'content' => '<p>Situs P2MPP memuat daftar akreditasi program studi beserta nomor sertifikat, peringkat, dan masa berlakunya untuk beberapa jenjang pendidikan. Rujuk tabel resmi untuk status dan dokumen terbaru setiap program.</p>',
-                'content_en' => '<p>P2MPP lists study-program accreditation certificates, ratings, and validity periods across multiple education levels. Refer to the official table for each program’s latest status and documents.</p>',
+                'content' => '<p>Daftar akreditasi program studi menampilkan peringkat dan masa berlaku sertifikat yang dikelola di panel admin.</p>',
+                'content_en' => '<p>The study program accreditation list shows the rating and validity of certificates managed in the admin panel.</p>',
             ],
         ];
 
         foreach ($pages as $data) {
-            $source = self::SOURCE.$data['source'];
-            $content = $data['content'].'<p><small>Sumber: <a href="'.$source.'">situs resmi P2MPP</a></small></p>';
-            $contentEn = $data['content_en'].'<p><small>Source: <a href="'.$source.'">official P2MPP site</a></small></p>';
-
             Page::updateOrCreate(
                 ['slug' => $data['slug']],
                 [
                     'title' => $data['title'],
                     'title_en' => $data['title_en'],
-                    'content' => $content,
-                    'content_en' => $contentEn,
+                    'content' => $data['content'],
+                    'content_en' => $data['content_en'],
                     'is_published' => $data['is_published'] ?? true,
                 ],
             );
@@ -112,6 +159,37 @@ class P2mppContentSeeder extends Seeder
                 'is_published' => true,
             ],
         );
+
+        Page::query()->each(function (Page $page): void {
+            $hasChanges = false;
+
+            foreach (['content', 'content_en'] as $field) {
+                $content = $page->getAttribute($field);
+
+                if (! filled($content)) {
+                    continue;
+                }
+
+                $cleanContent = preg_replace(
+                    '/<p\b[^>]*>\s*<small>\s*(?:Sumber|Source):.*?<\/small>\s*<\/p>/isu',
+                    '',
+                    $content,
+                );
+
+                if ($cleanContent === null) {
+                    throw new \RuntimeException('Gagal menghapus atribusi sumber dari konten halaman.');
+                }
+
+                if ($cleanContent !== $content) {
+                    $page->setAttribute($field, $cleanContent);
+                    $hasChanges = true;
+                }
+            }
+
+            if ($hasChanges) {
+                $page->save();
+            }
+        });
 
         foreach ([
             ['Pekerti', 'Pekerti', 'pekerti'],
@@ -172,5 +250,31 @@ class P2mppContentSeeder extends Seeder
         }
 
         $this->command?->info('Ringkasan konten P2MPP berhasil disinkronkan.');
+    }
+
+    private function studyProgramAccreditationContent(bool $english): string
+    {
+        $labels = $english
+            ? [
+                'intro' => 'The following active study programs and their accreditation ratings are listed in the PDDikti higher-education profile. The figures reflect the Odd Semester 2025 annual report data in the document printed on 8 November 2026. Closed programs are not included.',
+                'note' => 'Accreditation labels are reproduced as shown in PDDikti. The list does not specify each program’s accreditation validity period.',
+                'program' => 'Study Program',
+                'level' => 'Level',
+                'rating' => 'Accreditation',
+            ]
+            : [
+                'intro' => 'Berikut program studi berstatus aktif beserta peringkat akreditasinya sebagaimana tercantum pada profil perguruan tinggi di PDDikti. Data mengacu pada pelaporan tahunan Ganjil 2025 dalam dokumen yang dicetak pada 8 November 2026. Program berstatus tutup tidak disertakan.',
+                'note' => 'Label akreditasi ditampilkan sesuai yang tercantum di PDDikti. Daftar ini tidak mencantumkan masa berlaku akreditasi masing-masing program studi.',
+                'program' => 'Program Studi',
+                'level' => 'Jenjang',
+                'rating' => 'Akreditasi',
+            ];
+
+        $rows = array_map(
+            static fn (array $program): string => '<tr><td>'.e($program[0]).'</td><td>'.e($program[1]).'</td><td>'.e($program[2]).'</td><td>'.e($program[3]).'</td></tr>',
+            self::STUDY_PROGRAM_ACCREDITATIONS,
+        );
+
+        return '<p>'.$labels['intro'].'</p><div class="overflow-x-auto"><table style="min-width: 42rem"><thead><tr><th>Kode</th><th>'.$labels['program'].'</th><th>'.$labels['level'].'</th><th>'.$labels['rating'].'</th></tr></thead><tbody>'.implode('', $rows).'</tbody></table></div><p>'.$labels['note'].'</p>';
     }
 }

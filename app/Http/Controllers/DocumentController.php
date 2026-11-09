@@ -58,6 +58,9 @@ class DocumentController extends Controller
 
         $document->increment('downloads_count');
 
-        return Storage::disk('documents')->download($document->file_path, $document->file_name);
+        return Storage::disk('documents')->download(
+            $document->file_path,
+            $this->downloadFilename($document->localized('title'), $document->file_path),
+        );
     }
 }

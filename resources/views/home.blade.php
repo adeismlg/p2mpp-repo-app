@@ -4,7 +4,7 @@
     <section
         x-data="{ active: 0, slides: @js($sliders->map(fn ($slider) => ['id' => $slider->id, 'image' => $slider->image, 'title' => $slider->localized('title'), 'subtitle' => $slider->localized('subtitle'), 'link_url' => $slider->link_url, 'button_label' => $slider->localized('button_label')])->values()) }"
         x-init="setInterval(() => active = slides.length ? (active + 1) % slides.length : 0, 6000)"
-        class="relative isolate overflow-hidden bg-gradient-to-br from-indigo-50 via-blue-50 to-white"
+        class="relative isolate overflow-hidden bg-gradient-to-br from-indigo-50 to-white"
     >
         <div aria-hidden="true" class="pointer-events-none absolute -right-24 -top-32 h-96 w-96 rounded-full bg-orange-200/30 blur-3xl"></div>
         <div aria-hidden="true" class="pointer-events-none absolute -bottom-48 -left-20 h-96 w-96 rounded-full bg-indigo-200/40 blur-3xl"></div>
@@ -57,7 +57,7 @@
                             <img :src="'{{ asset('storage') }}/' + slide.image" :alt="slide.title" class="h-full w-full object-contain">
                         </div>
                     </template>
-                    <div x-show="slides.length === 0" class="absolute inset-0 flex flex-col items-center justify-center gap-5 bg-gradient-to-br from-white via-indigo-50 to-blue-100 p-8 text-center">
+                    <div x-show="slides.length === 0" class="absolute inset-0 flex flex-col items-center justify-center gap-5 bg-gradient-to-br from-white via-indigo-50 to-indigo-100 p-8 text-center">
                         <img src="{{ asset('images/logo-polinema.png') }}" alt="Logo Politeknik Negeri Malang" class="h-32 w-32 object-contain drop-shadow-sm">
                         <div>
                             <p class="text-sm font-bold uppercase tracking-[0.16em] text-indigo-500">Politeknik Negeri Malang</p>

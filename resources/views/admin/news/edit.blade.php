@@ -5,7 +5,7 @@
 @section('content')
     <h1 class="text-2xl font-bold mb-6">Edit Berita</h1>
 
-    <form action="{{ route('admin.news.update', $news) }}" method="POST" enctype="multipart/form-data"
+    <form action="{{ route('admin.news.update', $news) }}" method="POST" enctype="multipart/form-data" data-upload-progress-form
           class="bg-white border rounded-xl p-6 lg:p-8 max-w-5xl space-y-5">
         @csrf
         @method('PUT')
@@ -21,20 +21,22 @@
         <div><label class="block text-sm font-medium mb-1">Ringkasan Singkat (English)</label><input type="text" name="excerpt_en" value="{{ old('excerpt_en', $news->excerpt_en) }}" class="w-full border rounded-lg px-3 py-2 text-sm"></div>
         <div>
             <label class="block text-sm font-medium mb-1">Isi Berita</label>
-            <textarea name="content" rows="8" data-rich-editor class="w-full border rounded-lg px-3 py-2 text-sm" required>{{ old('content', $news->content) }}</textarea>
+            <textarea name="content" rows="8" data-rich-editor data-rich-editor-upload-url="{{ route('admin.editor-images.store') }}" data-rich-editor-csrf="{{ csrf_token() }}" class="w-full border rounded-lg px-3 py-2 text-sm" required>{{ old('content', $news->content) }}</textarea>
         </div>
-        <div><label class="block text-sm font-medium mb-1">Isi Berita (English)</label><textarea name="content_en" rows="8" data-rich-editor class="w-full border rounded-lg px-3 py-2 text-sm">{{ old('content_en', $news->content_en) }}</textarea></div>
+        <div><label class="block text-sm font-medium mb-1">Isi Berita (English)</label><textarea name="content_en" rows="8" data-rich-editor data-rich-editor-upload-url="{{ route('admin.editor-images.store') }}" data-rich-editor-csrf="{{ csrf_token() }}" class="w-full border rounded-lg px-3 py-2 text-sm">{{ old('content_en', $news->content_en) }}</textarea></div>
+        <p class="-mt-3 text-xs text-slate-500">Sisipkan gambar di dalam isi berita melalui tombol Gambar pada editor (JPG, PNG, atau WebP; maksimal 25 MB).</p>
         <div>
             @if ($news->thumbnail)
                 <img src="{{ asset('storage/'.$news->thumbnail) }}" class="h-24 rounded-lg mb-2">
             @endif
-            <label class="block text-sm font-medium mb-1">Ganti Gambar Sampul (opsional)</label>
+            <label class="block text-sm font-medium mb-1">Ganti Gambar Sampul (opsional; maks. 25 MB)</label>
             <input type="file" name="thumbnail" class="w-full border rounded-lg px-3 py-2 text-sm">
         </div>
         <div class="flex items-center gap-2">
             <input type="checkbox" name="published" id="published" value="1" @checked(old('published', $news->published_at)) class="rounded">
             <label for="published" class="text-sm">Terbit</label>
         </div>
+        @include('admin._upload-progress')
         <button type="submit" class="bg-indigo-600 text-white text-sm font-semibold px-6 py-2.5 rounded-lg hover:bg-indigo-700">
             Simpan Perubahan
         </button>

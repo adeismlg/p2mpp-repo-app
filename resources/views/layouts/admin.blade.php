@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>body{font-family:'Poppins',sans-serif}</style>
 </head>
-<body class="bg-slate-100 font-sans text-slate-800">
+<body class="bg-slate-50 font-sans text-slate-800">
 <div class="flex min-h-screen">
     <aside class="w-60 bg-slate-900 text-slate-300 p-5 shrink-0">
         <a href="{{ route('admin.dashboard') }}" class="block text-white font-bold text-lg mb-1">Admin Panel</a>
@@ -24,6 +24,7 @@
             <a href="{{ route('admin.documents.index') }}" class="block px-3 py-2 rounded-lg hover:bg-slate-800 {{ request()->routeIs('admin.documents.*') ? 'bg-slate-800 text-white' : '' }}">Repository Dokumen</a>
             <a href="{{ route('admin.news.index') }}" class="block px-3 py-2 rounded-lg hover:bg-slate-800 {{ request()->routeIs('admin.news.*') ? 'bg-slate-800 text-white' : '' }}">Berita</a>
             <a href="{{ route('admin.courses.index') }}" class="block px-3 py-2 rounded-lg hover:bg-slate-800 {{ request()->routeIs('admin.courses.*') ? 'bg-slate-800 text-white' : '' }}">Pelatihan</a>
+            <a href="{{ route('admin.study-program-accreditations.index') }}" class="block px-3 py-2 rounded-lg hover:bg-slate-800 {{ request()->routeIs('admin.study-program-accreditations.*') ? 'bg-slate-800 text-white' : '' }}">Akreditasi Prodi</a>
             <a href="{{ route('admin.accreditation-evidences.index') }}" class="block px-3 py-2 rounded-lg hover:bg-slate-800 {{ request()->routeIs('admin.accreditation-evidences.*') ? 'bg-slate-800 text-white' : '' }}">Bukti Akreditasi</a>
             <a href="{{ route('admin.pages.index') }}" class="block px-3 py-2 rounded-lg hover:bg-slate-800 {{ request()->routeIs('admin.pages.*') ? 'bg-slate-800 text-white' : '' }}">Halaman Konten</a>
             <a href="{{ route('admin.sliders.index') }}" class="block px-3 py-2 rounded-lg hover:bg-slate-800 {{ request()->routeIs('admin.sliders.*') ? 'bg-slate-800 text-white' : '' }}">Slider Beranda</a>

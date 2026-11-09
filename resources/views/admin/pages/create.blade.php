@@ -17,12 +17,12 @@
         </div>
         <div>
             <label class="block text-sm font-medium mb-1">Konten (boleh pakai HTML dasar: &lt;p&gt;, &lt;strong&gt;, &lt;ul&gt;, dst.)</label>
-            <p class="mb-2 text-xs text-slate-500">Gunakan menu Blok di editor untuk menambahkan panel, kutipan, atau tata letak dua kolom. Klik teks contoh untuk menggantinya.</p>
-            <textarea name="content" rows="12" data-rich-editor data-rich-editor-blocks data-rich-editor-css="{{ Vite::asset('resources/css/app.css') }}" class="w-full border rounded-lg px-3 py-2 text-sm">{{ old('content') }}</textarea>
+            <p class="mb-2 text-xs text-slate-500">Gunakan menu Blok untuk panel dan tata letak. Sisipkan gambar melalui tombol Gambar; format JPG, PNG, atau WebP, maksimal 25 MB.</p>
+            <textarea name="content" rows="12" data-rich-editor data-rich-editor-blocks data-rich-editor-css="{{ Vite::asset('resources/css/app.css') }}" data-rich-editor-upload-url="{{ route('admin.editor-images.store') }}" data-rich-editor-csrf="{{ csrf_token() }}" class="w-full border rounded-lg px-3 py-2 text-sm">{{ old('content') }}</textarea>
         </div>
         <div>
             <label class="block text-sm font-medium mb-1">Konten (English)</label>
-            <textarea name="content_en" rows="12" data-rich-editor data-rich-editor-blocks data-rich-editor-css="{{ Vite::asset('resources/css/app.css') }}" class="w-full border rounded-lg px-3 py-2 text-sm">{{ old('content_en') }}</textarea>
+            <textarea name="content_en" rows="12" data-rich-editor data-rich-editor-blocks data-rich-editor-css="{{ Vite::asset('resources/css/app.css') }}" data-rich-editor-upload-url="{{ route('admin.editor-images.store') }}" data-rich-editor-csrf="{{ csrf_token() }}" class="w-full border rounded-lg px-3 py-2 text-sm">{{ old('content_en') }}</textarea>
         </div>
         <div class="flex items-center gap-2">
             <input type="checkbox" name="is_published" id="is_published" value="1" checked class="rounded">

@@ -53,9 +53,25 @@ class PageControllerTest extends TestCase
 
         $this->actingAs($editor)
             ->get(route('admin.pages.edit', $page))
-            ->assertSee('Gunakan menu Blok di editor', false)
+            ->assertSee('Gunakan menu Blok untuk panel dan tata letak', false)
             ->assertSee('data-rich-editor-blocks', false)
-            ->assertSee('data-rich-editor-css=', false);
+            ->assertSee('data-rich-editor-css=', false)
+            ->assertSee('data-rich-editor-upload-url=', false);
+    }
+
+    public function test_dynamic_program_accreditation_page_points_editors_to_its_data_manager(): void
+    {
+        $page = Page::query()->create([
+            'title' => 'Akreditasi Program Studi',
+            'slug' => 'akreditasi-program-studi',
+            'is_published' => true,
+        ]);
+        $editor = User::factory()->create(['role' => User::ROLE_EDITOR]);
+
+        $this->actingAs($editor)
+            ->get(route('admin.pages.edit', $page))
+            ->assertSee('Kelola informasi dan sertifikat per program melalui menu Akreditasi Prodi.')
+            ->assertDontSee('data-rich-editor', false);
     }
 
     public function test_public_page_renders_visual_content_blocks(): void
@@ -83,6 +99,7 @@ class PageControllerTest extends TestCase
 
         $this->get(route('pages.show', $page))
             ->assertSee('<h1 class="mb-7', false)
+            ->assertSee('page-canvas', false)
             ->assertSee('<h2>Komitmen mutu</h2>', false)
             ->assertSee('Perbaikan berkelanjutan.')
             ->assertDontSee('rounded-xl border bg-white p-8 shadow-sm');

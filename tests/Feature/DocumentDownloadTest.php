@@ -54,17 +54,17 @@ class DocumentDownloadTest extends TestCase
     public function test_stored_document_downloads_still_use_local_storage(): void
     {
         Storage::fake('documents');
-        Storage::disk('documents')->put('guide.pdf', 'Document contents');
+        Storage::disk('documents')->put('random-private-name.pdf', 'Document contents');
         $document = Document::create([
-            'title' => 'Guide',
-            'file_path' => 'guide.pdf',
-            'file_name' => 'guide.pdf',
+            'title' => 'Pedoman Mutu SPMI 2026',
+            'file_path' => 'random-private-name.pdf',
+            'file_name' => 'nama-asli-berkas.pdf',
             'file_type' => 'application/pdf',
             'is_public' => true,
         ]);
 
         $this->get(route('documents.download', $document))
-            ->assertDownload('guide.pdf');
+            ->assertDownload('pedoman-mutu-spmi-2026.pdf');
 
         $this->assertDatabaseHas('documents', [
             'id' => $document->id,

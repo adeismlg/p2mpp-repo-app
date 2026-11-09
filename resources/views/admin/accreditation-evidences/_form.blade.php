@@ -1,5 +1,5 @@
 <form action="{{ $evidence->exists ? route('admin.accreditation-evidences.update', $evidence) : route('admin.accreditation-evidences.store') }}"
-      method="POST" enctype="multipart/form-data" class="max-w-3xl space-y-5 rounded-xl border bg-white p-6">
+      method="POST" enctype="multipart/form-data" data-upload-progress-form class="max-w-3xl space-y-5 rounded-xl border bg-white p-6">
     @csrf
     @if ($evidence->exists)
         @method('PUT')
@@ -62,7 +62,7 @@
     </div>
 
     <div>
-        <label for="evidence_file" class="mb-1 block text-sm font-medium">Berkas bukti (PDF, Office, atau ZIP; maks. 20 MB)</label>
+        <label for="evidence_file" class="mb-1 block text-sm font-medium">Berkas bukti (PDF, Office, atau ZIP; maks. 25 MB)</label>
         @if ($evidence->evidence_path)
             <p class="mb-2 text-xs text-slate-500">Berkas telah diunggah. Pilih file baru jika ingin menggantinya.</p>
         @endif
@@ -75,6 +75,7 @@
         <textarea id="notes" name="notes" rows="3" class="w-full rounded-lg border px-3 py-2 text-sm">{{ old('notes', $evidence->notes) }}</textarea>
     </div>
 
+    @include('admin._upload-progress')
     <div class="flex flex-wrap gap-3">
         <button type="submit" class="rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700">Simpan</button>
         <a href="{{ route('admin.accreditation-evidences.index') }}" class="rounded-lg border px-5 py-2.5 text-sm font-semibold hover:bg-slate-50">Batal</a>

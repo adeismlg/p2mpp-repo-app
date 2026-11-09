@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer components {
+    .page-canvas {
+        @apply bg-slate-50;
+    }
+
     .page-content h2 {
         @apply mb-4 mt-10 text-2xl font-bold tracking-tight text-indigo-950;
     }

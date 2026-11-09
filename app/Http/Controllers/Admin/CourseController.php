@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Course;
+use App\Services\SafeImageStorage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -21,7 +22,7 @@ class CourseController extends Controller
         return view('admin.courses.create');
     }
 
-    public function store(Request $request)
+    public function store(Request $request, SafeImageStorage $imageStorage)
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
@@ -30,12 +31,12 @@ class CourseController extends Controller
             'description_en' => 'nullable|string',
             'facilities' => 'nullable|string',
             'facilities_en' => 'nullable|string',
-            'thumbnail' => 'nullable|image|max:4096',
+            'thumbnail' => 'nullable|image|mimes:jpg,jpeg,png,webp|dimensions:max_width=10000,max_height=10000|max:'.config('uploads.max_size_kilobytes'),
         ]);
 
         $thumbnailPath = null;
         if ($request->hasFile('thumbnail')) {
-            $thumbnailPath = $request->file('thumbnail')->store('courses', 'public');
+            $thumbnailPath = $imageStorage->store($request->file('thumbnail'), 'courses', inputName: 'thumbnail');
         }
 
         Course::create([
@@ -48,7 +49,7 @@ class CourseController extends Controller
             'thumbnail' => $thumbnailPath,
         ]);
 
-        return redirect()->route('admin.courses.index')->with('status', 'Pelatihan berhasil ditambahkan.');
+        return $this->respondAfterUpload($request, 'admin.courses.index', 'Pelatihan berhasil ditambahkan.');
     }
 
     public function edit(Course $course)
@@ -56,7 +57,7 @@ class CourseController extends Controller
         return view('admin.courses.edit', compact('course'));
     }
 
-    public function update(Request $request, Course $course)
+    public function update(Request $request, Course $course, SafeImageStorage $imageStorage)
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
@@ -65,7 +66,7 @@ class CourseController extends Controller
             'description_en' => 'nullable|string',
             'facilities' => 'nullable|string',
             'facilities_en' => 'nullable|string',
-            'thumbnail' => 'nullable|image|max:4096',
+            'thumbnail' => 'nullable|image|mimes:jpg,jpeg,png,webp|dimensions:max_width=10000,max_height=10000|max:'.config('uploads.max_size_kilobytes'),
         ]);
 
         $course->name = $data['name'];
@@ -75,16 +76,22 @@ class CourseController extends Controller
         $course->facilities = $this->parseFacilities($data['facilities'] ?? '');
         $course->facilities_en = $this->parseFacilities($data['facilities_en'] ?? '');
 
-        if ($request->hasFile('thumbnail')) {
-            if ($course->thumbnail) {
-                Storage::disk('public')->delete($course->thumbnail);
-            }
-            $course->thumbnail = $request->file('thumbnail')->store('courses', 'public');
+        $oldThumbnail = $course->thumbnail;
+        $newThumbnail = $request->hasFile('thumbnail')
+            ? $imageStorage->store($request->file('thumbnail'), 'courses', inputName: 'thumbnail')
+            : null;
+
+        if ($newThumbnail) {
+            $course->thumbnail = $newThumbnail;
         }
 
         $course->save();
 
-        return redirect()->route('admin.courses.index')->with('status', 'Pelatihan berhasil diperbarui.');
+        if ($newThumbnail && $oldThumbnail) {
+            Storage::disk('public')->delete($oldThumbnail);
+        }
+
+        return $this->respondAfterUpload($request, 'admin.courses.index', 'Pelatihan berhasil diperbarui.');
     }
 
     public function destroy(Course $course)

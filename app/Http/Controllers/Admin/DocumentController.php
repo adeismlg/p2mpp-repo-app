@@ -40,7 +40,7 @@ class DocumentController extends Controller
             'description' => 'nullable|string',
             'description_en' => 'nullable|string',
             'is_public' => 'nullable|boolean',
-            'file' => 'required|file|max:20480|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,zip',
+            'file' => 'required|file|max:'.config('uploads.max_size_kilobytes').'|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,zip',
         ]);
 
         $file = $request->file('file');
@@ -60,7 +60,7 @@ class DocumentController extends Controller
             'uploaded_by' => $request->user()?->id,
         ]);
 
-        return redirect()->route('admin.documents.index')->with('status', 'Dokumen berhasil diunggah.');
+        return $this->respondAfterUpload($request, 'admin.documents.index', 'Dokumen berhasil diunggah.');
     }
 
     public function edit(Document $document)
@@ -79,7 +79,7 @@ class DocumentController extends Controller
             'description' => 'nullable|string',
             'description_en' => 'nullable|string',
             'is_public' => 'nullable|boolean',
-            'file' => 'nullable|file|max:20480|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,zip',
+            'file' => 'nullable|file|max:'.config('uploads.max_size_kilobytes').'|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,zip',
         ]);
 
         $document->title = $data['title'];
@@ -101,7 +101,7 @@ class DocumentController extends Controller
 
         $document->save();
 
-        return redirect()->route('admin.documents.index')->with('status', 'Dokumen berhasil diperbarui.');
+        return $this->respondAfterUpload($request, 'admin.documents.index', 'Dokumen berhasil diperbarui.');
     }
 
     public function destroy(Document $document)

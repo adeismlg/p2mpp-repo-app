@@ -20,7 +20,7 @@
     @endif
     <label class="block text-sm font-medium mb-1">{{ !empty($slider->image ?? null) ? 'Ganti gambar' : 'Gambar' }}</label>
     <input type="file" name="image" accept="image/jpeg,image/png,image/webp" class="w-full border rounded-lg px-3 py-2 text-sm" @required(empty($slider->image ?? null))>
-    <p class="text-xs text-slate-400 mt-1">Format JPG, PNG, atau WebP. Maksimal 4 MB.</p>
+    <p class="text-xs text-slate-400 mt-1">Format JPG, PNG, atau WebP. Maksimal 25 MB.</p>
 </div>
 <div>
     <label class="block text-sm font-medium mb-1">Tautan tombol (opsional)</label>

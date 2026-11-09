@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\News;
+use App\Services\SafeImageStorage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -21,7 +22,7 @@ class NewsController extends Controller
         return view('admin.news.create');
     }
 
-    public function store(Request $request)
+    public function store(Request $request, SafeImageStorage $imageStorage)
     {
         $data = $request->validate([
             'title' => 'required|string|max:255',
@@ -30,13 +31,13 @@ class NewsController extends Controller
             'excerpt_en' => 'nullable|string|max:255',
             'content' => 'required|string',
             'content_en' => 'nullable|string',
-            'thumbnail' => 'nullable|image|max:4096',
+            'thumbnail' => 'nullable|image|mimes:jpg,jpeg,png,webp|dimensions:max_width=10000,max_height=10000|max:'.config('uploads.max_size_kilobytes'),
             'published' => 'nullable|boolean',
         ]);
 
         $thumbnailPath = null;
         if ($request->hasFile('thumbnail')) {
-            $thumbnailPath = $request->file('thumbnail')->store('news', 'public');
+            $thumbnailPath = $imageStorage->store($request->file('thumbnail'), 'news', inputName: 'thumbnail');
         }
 
         News::create([
@@ -50,7 +51,7 @@ class NewsController extends Controller
             'published_at' => $request->boolean('published') ? now() : null,
         ]);
 
-        return redirect()->route('admin.news.index')->with('status', 'Berita berhasil dibuat.');
+        return $this->respondAfterUpload($request, 'admin.news.index', 'Berita berhasil dibuat.');
     }
 
     public function edit(News $news)
@@ -58,7 +59,7 @@ class NewsController extends Controller
         return view('admin.news.edit', compact('news'));
     }
 
-    public function update(Request $request, News $news)
+    public function update(Request $request, News $news, SafeImageStorage $imageStorage)
     {
         $data = $request->validate([
             'title' => 'required|string|max:255',
@@ -67,7 +68,7 @@ class NewsController extends Controller
             'excerpt_en' => 'nullable|string|max:255',
             'content' => 'required|string',
             'content_en' => 'nullable|string',
-            'thumbnail' => 'nullable|image|max:4096',
+            'thumbnail' => 'nullable|image|mimes:jpg,jpeg,png,webp|dimensions:max_width=10000,max_height=10000|max:'.config('uploads.max_size_kilobytes'),
             'published' => 'nullable|boolean',
         ]);
 
@@ -79,16 +80,22 @@ class NewsController extends Controller
         $news->content_en = $data['content_en'] ?? null;
         $news->published_at = $request->boolean('published') ? ($news->published_at ?? now()) : null;
 
-        if ($request->hasFile('thumbnail')) {
-            if ($news->thumbnail) {
-                Storage::disk('public')->delete($news->thumbnail);
-            }
-            $news->thumbnail = $request->file('thumbnail')->store('news', 'public');
+        $oldThumbnail = $news->thumbnail;
+        $newThumbnail = $request->hasFile('thumbnail')
+            ? $imageStorage->store($request->file('thumbnail'), 'news', inputName: 'thumbnail')
+            : null;
+
+        if ($newThumbnail) {
+            $news->thumbnail = $newThumbnail;
         }
 
         $news->save();
 
-        return redirect()->route('admin.news.index')->with('status', 'Berita berhasil diperbarui.');
+        if ($newThumbnail && $oldThumbnail) {
+            Storage::disk('public')->delete($oldThumbnail);
+        }
+
+        return $this->respondAfterUpload($request, 'admin.news.index', 'Berita berhasil diperbarui.');
     }
 
     public function destroy(News $news)

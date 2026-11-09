@@ -1,14 +1,17 @@
 <?php
 
+use App\Http\Controllers\AccreditationCertificateController;
 use App\Http\Controllers\Admin\AccreditationEvidenceController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CourseController as AdminCourseController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DocumentController as AdminDocumentController;
+use App\Http\Controllers\Admin\EditorImageController;
 use App\Http\Controllers\Admin\MenuController as AdminMenuController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\PageController as AdminPageController;
 use App\Http\Controllers\Admin\SliderController as AdminSliderController;
+use App\Http\Controllers\Admin\StudyProgramAccreditationController as AdminStudyProgramAccreditationController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DocumentController;
@@ -64,6 +67,8 @@ Route::get('/dokumen', [DocumentController::class, 'index'])->name('documents.in
 Route::get('/dokumen/{document}', [DocumentController::class, 'show'])->name('documents.show');
 Route::get('/dokumen/{document}/download', [DocumentController::class, 'download'])->name('documents.download');
 
+Route::get('/akreditasi/program-studi/{study_program_accreditation}/sertifikat', [AccreditationCertificateController::class, 'download'])
+    ->name('accreditations.study-program.download');
 Route::get('/halaman/{page}', [PageController::class, 'show'])->name('pages.show');
 
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
@@ -95,6 +100,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'staff'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::post('editor-images', [EditorImageController::class, 'store'])->name('editor-images.store');
 
     Route::resource('dokumen', AdminDocumentController::class)
         ->parameters(['dokumen' => 'document'])
@@ -126,6 +132,13 @@ Route::middleware(['auth', 'staff'])->prefix('admin')->name('admin.')->group(fun
     Route::resource('bukti-akreditasi', AccreditationEvidenceController::class)
         ->parameters(['bukti-akreditasi' => 'accreditation_evidence'])
         ->names('accreditation-evidences')
+        ->except(['show']);
+
+    Route::get('akreditasi-prodi/{study_program_accreditation}/unduh', [AdminStudyProgramAccreditationController::class, 'download'])
+        ->name('study-program-accreditations.download');
+    Route::resource('akreditasi-prodi', AdminStudyProgramAccreditationController::class)
+        ->parameters(['akreditasi-prodi' => 'study_program_accreditation'])
+        ->names('study-program-accreditations')
         ->except(['show']);
 
     // Khusus admin: kategori dokumen, manajemen staff, & struktur menu

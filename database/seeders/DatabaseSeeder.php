@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             P2mppContentSeeder::class,
+            StudyProgramAccreditationSeeder::class,
             MenuSeeder::class,
             SliderSeeder::class,
         ]);

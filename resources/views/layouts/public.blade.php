@@ -15,7 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>body{font-family:'Poppins',sans-serif}</style>
 </head>
-<body class="bg-white font-sans text-slate-800">
+<body class="bg-slate-50 font-sans text-slate-800">
 
     @php
         // Menu diambil langsung dari database supaya admin bisa atur sendiri

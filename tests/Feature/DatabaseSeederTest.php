@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Page;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
@@ -68,8 +69,19 @@ class DatabaseSeederTest extends TestCase
         $this->get(route('pages.show', 'akreditasi-institusi'))
             ->assertOk()
             ->assertSee('Unggul')
-            ->assertSee('situs resmi P2MPP')
+            ->assertSee('2314/SK/BAN-PT/Ak/PT/VI/2025')
+            ->assertSee('4 Juni 2025 sampai dengan 4 Juni 2030')
+            ->assertDontSee('Sumber:')
             ->assertDontSee('slot gacor');
+
+        $this->get(route('pages.show', 'akreditasi-program-studi'))
+            ->assertOk()
+            ->assertSee('0449/SK/LAM Teknik/VD3/VIII/2025')
+            ->assertSee('Teknik Sipil')
+            ->assertSee('Unggul')
+            ->assertSee('20 Aug 2030')
+            ->assertDontSee('PDDikti')
+            ->assertDontSee('Sumber:');
 
         $this->get(route('pages.show', 'visi-misi'))
             ->assertNotFound();
@@ -87,7 +99,7 @@ class DatabaseSeederTest extends TestCase
             ->assertSee('Visi dan Misi Polinema')
             ->assertDontSee('Profil Polinema')
             ->assertDontSee('Arah dan komitmen Polinema dalam pendidikan')
-            ->assertSee('situs resmi Polinema')
+            ->assertDontSee('Sumber:')
             ->assertDontSee('slot gacor');
 
         $this->get(route('pages.show', 'jurusan-polinema'))
@@ -98,7 +110,7 @@ class DatabaseSeederTest extends TestCase
             ->assertSee('Pamekasan')
             ->assertSee('Teknik Elektro')
             ->assertSee('Teknologi Informasi')
-            ->assertSee('https://www.polinema.ac.id/jurusan/');
+            ->assertDontSee('Sumber:');
 
         $this->get(route('pages.show', 'tugas-dan-fungsi-utama'))
             ->assertOk()
@@ -107,5 +119,27 @@ class DatabaseSeederTest extends TestCase
             ->assertSee('Level IV')
             ->assertSee('Pengendalian Matriks Kompetensi')
             ->assertSee('tidak menyatakan status sertifikasi saat ini');
+    }
+
+    public function test_seeded_pages_do_not_include_source_attribution_footers(): void
+    {
+        $this->seed();
+
+        foreach (Page::query()->get() as $page) {
+            $this->assertStringNotContainsString('Sumber:', $page->content ?? '');
+            $this->assertStringNotContainsString('Source:', $page->content_en ?? '');
+        }
+    }
+
+    public function test_program_accreditation_page_lists_only_currently_valid_csv_records(): void
+    {
+        $this->travelTo('2026-11-09 00:00:00');
+        $this->seed();
+
+        $response = $this->get(route('pages.show', 'akreditasi-program-studi'));
+
+        $this->assertSame(41, substr_count($response->getContent(), '<tr>') - 1);
+        $response->assertDontSee('980/SK/BAN-PT/Akred/Dipl-III/II/2021');
+        $response->assertDontSee('5474/SK/BAN-PT/Ak/MTr/VIII/2022');
     }
 }

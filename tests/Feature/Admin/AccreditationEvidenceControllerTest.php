@@ -62,6 +62,7 @@ class AccreditationEvidenceControllerTest extends TestCase
 
         $evidence = AccreditationEvidence::query()->where('criterion_code', 'C.1')->firstOrFail();
         Storage::disk('local')->assertExists($evidence->evidence_path);
+        $this->assertStringNotContainsString('rencana.pdf', basename($evidence->evidence_path));
     }
 
     public function test_guest_is_redirected_from_the_internal_evidence_register(): void
@@ -90,12 +91,13 @@ class AccreditationEvidenceControllerTest extends TestCase
         Storage::disk('local')->put('accreditation-evidences/evidence.pdf', 'Private evidence');
         $evidence = AccreditationEvidence::factory()->create([
             'evidence_path' => 'accreditation-evidences/evidence.pdf',
+            'evidence_title' => 'Bukti Visi Misi C.1',
         ]);
         $editor = User::factory()->create(['role' => User::ROLE_EDITOR]);
 
         $this->actingAs($editor)
             ->get(route('admin.accreditation-evidences.download', $evidence))
-            ->assertDownload('evidence.pdf');
+            ->assertDownload('bukti-visi-misi-c1.pdf');
     }
 
     public function test_invalid_evidence_file_is_rejected_without_creating_a_record(): void

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AccreditationEvidence;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -54,7 +55,7 @@ class AccreditationEvidenceController extends Controller
         ]);
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request): JsonResponse|RedirectResponse
     {
         $data = $this->validatedData($request, true);
         $file = $request->file('evidence_file');
@@ -69,8 +70,11 @@ class AccreditationEvidenceController extends Controller
             'evidence_path' => $path,
         ]);
 
-        return redirect()->route('admin.accreditation-evidences.index')
-            ->with('status', 'Bukti akreditasi berhasil ditambahkan.');
+        return $this->respondAfterUpload(
+            $request,
+            'admin.accreditation-evidences.index',
+            'Bukti akreditasi berhasil ditambahkan.',
+        );
     }
 
     public function edit(AccreditationEvidence $accreditation_evidence): View
@@ -81,7 +85,7 @@ class AccreditationEvidenceController extends Controller
         ]);
     }
 
-    public function update(Request $request, AccreditationEvidence $accreditation_evidence): RedirectResponse
+    public function update(Request $request, AccreditationEvidence $accreditation_evidence): JsonResponse|RedirectResponse
     {
         $data = $this->validatedData($request, false);
         $oldPath = $accreditation_evidence->evidence_path;
@@ -102,8 +106,11 @@ class AccreditationEvidenceController extends Controller
             $this->deleteEvidenceFile($oldPath);
         }
 
-        return redirect()->route('admin.accreditation-evidences.index')
-            ->with('status', 'Bukti akreditasi berhasil diperbarui.');
+        return $this->respondAfterUpload(
+            $request,
+            'admin.accreditation-evidences.index',
+            'Bukti akreditasi berhasil diperbarui.',
+        );
     }
 
     public function destroy(AccreditationEvidence $accreditation_evidence): RedirectResponse
@@ -124,7 +131,10 @@ class AccreditationEvidenceController extends Controller
             404,
         );
 
-        return Storage::disk('local')->download($accreditation_evidence->evidence_path);
+        return Storage::disk('local')->download(
+            $accreditation_evidence->evidence_path,
+            $this->downloadFilename($accreditation_evidence->evidence_title, $accreditation_evidence->evidence_path),
+        );
     }
 
     private function validatedData(Request $request, bool $fileRequired): array
@@ -146,7 +156,7 @@ class AccreditationEvidenceController extends Controller
             'evidence_file' => [
                 $fileRequired ? 'required' : 'nullable',
                 'file',
-                'max:20480',
+                'max:'.config('uploads.max_size_kilobytes'),
                 'mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,zip',
             ],
         ]);
